@@ -12,7 +12,7 @@ interface ImageFile {
 interface ImageUploaderProps {
   images: ImageFile[];
   onChange: (images: ImageFile[]) => void;
-  category: 'restaurant' | 'business';
+  category: 'restaurant' | 'business' | 'foodtruck';
 }
 
 export default function ImageUploader({ images, onChange, category }: ImageUploaderProps) {
@@ -33,7 +33,7 @@ export default function ImageUploader({ images, onChange, category }: ImageUploa
         newImages.push({
           file,
           preview: URL.createObjectURL(file),
-          type: category === 'restaurant' ? 'food' : 'general',
+          type: (category === 'restaurant' || category === 'foodtruck') ? 'food' : 'general',
         });
       }
 
@@ -121,6 +121,11 @@ export default function ImageUploader({ images, onChange, category }: ImageUploa
                   <>
                     <option value="food">Food</option>
                     <option value="establishment">Establishment</option>
+                  </>
+                ) : category === 'foodtruck' ? (
+                  <>
+                    <option value="food">Food</option>
+                    <option value="general">General</option>
                   </>
                 ) : (
                   <>

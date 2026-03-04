@@ -19,7 +19,7 @@ export default function HomePage() {
           </p>
 
           {/* Category Selection */}
-          <div className="grid sm:grid-cols-2 gap-6 max-w-2xl mx-auto">
+          <div className="grid sm:grid-cols-3 gap-6 max-w-4xl mx-auto">
             <Link
               href="/restaurant"
               className="group relative bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-all hover:-translate-y-1"
@@ -58,6 +58,29 @@ export default function HomePage() {
               </h2>
               <p className="text-gray-500 text-sm">
                 Rate customer service, shopping experience, and store quality
+              </p>
+              <div className="mt-4 inline-flex items-center text-turquoise-dark font-medium text-sm group-hover:gap-2 transition-all">
+                Browse
+                <svg className="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                </svg>
+              </div>
+            </Link>
+
+            <Link
+              href="/foodtruck"
+              className="group relative bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-all hover:-translate-y-1"
+            >
+              <div className="w-16 h-16 rounded-xl bg-violet/10 flex items-center justify-center mb-4 mx-auto group-hover:bg-violet/20 transition-colors">
+                <svg className="w-8 h-8 text-violet" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M8 17h.01M16 17h.01M3 11h18M5 11V7a2 2 0 012-2h10a2 2 0 012 2v4M5 11v6a2 2 0 002 2h10a2 2 0 002-2v-6" />
+                </svg>
+              </div>
+              <h2 className="text-xl font-bold text-black mb-2">
+                Food Truck / Mobile
+              </h2>
+              <p className="text-gray-500 text-sm">
+                Rate food quality, speed of service, and mobile setup
               </p>
               <div className="mt-4 inline-flex items-center text-turquoise-dark font-medium text-sm group-hover:gap-2 transition-all">
                 Browse

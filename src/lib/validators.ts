@@ -55,3 +55,30 @@ export const businessReviewSchema = z.object({
   compartments: businessCompartmentsSchema,
   reviewText: z.string().min(20, 'Review must be at least 20 characters'),
 });
+
+const foodtruckCompartmentsSchema = z.object({
+  food: z.object({
+    taste: ratingSchema,
+    freshness: ratingSchema,
+    portion_size: ratingSchema,
+    menu_variety: ratingSchema,
+  }),
+  service: z.object({
+    speed: ratingSchema,
+    friendliness: ratingSchema,
+    order_accuracy: ratingSchema,
+    communication: ratingSchema,
+  }),
+  setup: z.object({
+    cleanliness: ratingSchema,
+    accessibility: ratingSchema,
+    wait_area: ratingSchema,
+    overall_vibe: ratingSchema,
+  }),
+});
+
+export const foodtruckReviewSchema = z.object({
+  overallRating: ratingSchema,
+  compartments: foodtruckCompartmentsSchema,
+  reviewText: z.string().min(20, 'Review must be at least 20 characters'),
+});

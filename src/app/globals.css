@@ -8,6 +8,9 @@
   --pink-light: #FBCFE8;
   --gold: #F59E0B;
   --gold-light: #FDE68A;
+  --violet: #8B5CF6;
+  --violet-dark: #7C3AED;
+  --violet-light: #C4B5FD;
   --black: #0A0A0A;
   --white: #FFFFFF;
   --gray-50: #F9FAFB;
@@ -33,6 +36,9 @@
   --color-pink-light: var(--pink-light);
   --color-gold: var(--gold);
   --color-gold-light: var(--gold-light);
+  --color-violet: var(--violet);
+  --color-violet-dark: var(--violet-dark);
+  --color-violet-light: var(--violet-light);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
 }

@@ -7,6 +7,7 @@ import ImageUploader from '@/components/ui/ImageUploader';
 import VoiceToTextButton from '@/components/ui/VoiceToTextButton';
 import RestaurantCompartments from './RestaurantCompartments';
 import BusinessCompartments from './BusinessCompartments';
+import FoodTruckCompartments from './FoodTruckCompartments';
 import { createClient } from '@/lib/supabase/client';
 import { useImageUpload } from '@/hooks/useImageUpload';
 import { MIN_REVIEW_LENGTH } from '@/lib/constants';
@@ -158,6 +159,11 @@ export default function ReviewForm({ businessId, businessName, category }: Revie
       {/* Compartment Ratings */}
       {category === 'restaurant' ? (
         <RestaurantCompartments
+          ratings={form.compartments}
+          onRatingChange={handleCompartmentRating}
+        />
+      ) : category === 'foodtruck' ? (
+        <FoodTruckCompartments
           ratings={form.compartments}
           onRatingChange={handleCompartmentRating}
         />

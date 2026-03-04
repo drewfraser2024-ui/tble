@@ -1,4 +1,4 @@
-export type BusinessCategory = 'restaurant' | 'business';
+export type BusinessCategory = 'restaurant' | 'business' | 'foodtruck';
 
 export interface Business {
   id: string;

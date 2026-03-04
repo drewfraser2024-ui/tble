@@ -53,9 +53,11 @@ export default async function SearchPage({
                 <span className={`text-xs px-2 py-0.5 rounded-full font-medium ${
                   biz.category === 'restaurant'
                     ? 'bg-pink/10 text-pink'
+                    : biz.category === 'foodtruck'
+                    ? 'bg-violet/10 text-violet'
                     : 'bg-gold/10 text-gold'
                 }`}>
-                  {biz.category === 'restaurant' ? 'Restaurant' : 'Business'}
+                  {biz.category === 'restaurant' ? 'Restaurant' : biz.category === 'foodtruck' ? 'Food Truck' : 'Business'}
                 </span>
               </div>
               <h3 className="font-bold text-black group-hover:text-turquoise-dark transition-colors">

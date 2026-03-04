@@ -18,7 +18,7 @@ export default async function MapPage({
     .from('businesses')
     .select('id, name, category, latitude, longitude, avg_overall_rating, address');
 
-  if (category === 'restaurant' || category === 'business') {
+  if (category === 'restaurant' || category === 'business' || category === 'foodtruck') {
     query = query.eq('category', category);
   }
 
@@ -58,6 +58,14 @@ export default async function MapPage({
             }`}
           >
             Businesses
+          </a>
+          <a
+            href="/map?category=foodtruck"
+            className={`text-xs px-3 py-1.5 rounded-full font-medium transition-colors ${
+              category === 'foodtruck' ? 'bg-violet text-white' : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+            }`}
+          >
+            Food Trucks
           </a>
         </div>
       </div>

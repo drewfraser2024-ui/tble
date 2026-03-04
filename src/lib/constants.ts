@@ -60,6 +60,36 @@ export const BUSINESS_COMPARTMENTS: Record<string, Compartment> = {
   },
 };
 
+export const FOODTRUCK_COMPARTMENTS: Record<string, Compartment> = {
+  food: {
+    label: 'Food',
+    criteria: [
+      { key: 'taste', label: 'Taste' },
+      { key: 'freshness', label: 'Freshness' },
+      { key: 'portion_size', label: 'Portion Size' },
+      { key: 'menu_variety', label: 'Menu Variety' },
+    ],
+  },
+  service: {
+    label: 'Service',
+    criteria: [
+      { key: 'speed', label: 'Speed' },
+      { key: 'friendliness', label: 'Friendliness' },
+      { key: 'order_accuracy', label: 'Order Accuracy' },
+      { key: 'communication', label: 'Communication' },
+    ],
+  },
+  setup: {
+    label: 'Setup & Location',
+    criteria: [
+      { key: 'cleanliness', label: 'Cleanliness' },
+      { key: 'accessibility', label: 'Accessibility' },
+      { key: 'wait_area', label: 'Wait Area' },
+      { key: 'overall_vibe', label: 'Overall Vibe' },
+    ],
+  },
+};
+
 export const MAX_IMAGES = 10;
 export const MAX_IMAGE_SIZE_MB = 5;
 export const MIN_REVIEW_LENGTH = 20;
