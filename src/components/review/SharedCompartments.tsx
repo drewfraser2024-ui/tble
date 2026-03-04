@@ -1,22 +1,22 @@
 'use client';
 
 import CompartmentSection from './CompartmentSection';
-import { RESTAURANT_COMPARTMENTS } from '@/lib/constants';
+import { SHARED_COMPARTMENTS } from '@/lib/constants';
 
-interface RestaurantCompartmentsProps {
+interface SharedCompartmentsProps {
   ratings: Record<string, Record<string, number>>;
   onRatingChange: (compartment: string, criterion: string, rating: number) => void;
   errors?: Record<string, Record<string, string>>;
 }
 
-export default function RestaurantCompartments({
+export default function SharedCompartments({
   ratings,
   onRatingChange,
   errors,
-}: RestaurantCompartmentsProps) {
+}: SharedCompartmentsProps) {
   return (
     <div className="space-y-4">
-      {Object.entries(RESTAURANT_COMPARTMENTS).map(([key, compartment]) => (
+      {Object.entries(SHARED_COMPARTMENTS).map(([key, compartment]) => (
         <CompartmentSection
           key={key}
           title={compartment.label}

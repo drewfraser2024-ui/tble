@@ -22,10 +22,15 @@ export default async function FoodTruckDetailPage({ params }: { params: Promise<
       *,
       ratings:review_ratings(*),
       images:review_images(*),
-      comments:comments(*)
+      comments:comments(*),
+      owner_response:owner_responses(*)
     `)
     .eq('business_id', id)
     .order('created_at', { ascending: false });
+
+  const { data: { user } } = await supabase.auth.getUser();
+  const isOwner = !!user && user.id === business.owner_user_id;
+  const isPremium = business.is_premium;
 
   return (
     <div>
@@ -59,7 +64,7 @@ export default async function FoodTruckDetailPage({ params }: { params: Promise<
 
       {/* Reviews */}
       <h2 className="text-xl font-bold text-black mb-4">Reviews</h2>
-      <ReviewList reviews={reviews || []} />
+      <ReviewList reviews={reviews || []} isOwner={isOwner} isPremium={isPremium} businessId={business.id} />
     </div>
   );
 }

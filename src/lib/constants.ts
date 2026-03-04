@@ -1,66 +1,6 @@
 import type { Compartment } from '@/types/review';
 
-export const RESTAURANT_COMPARTMENTS: Record<string, Compartment> = {
-  food: {
-    label: 'Food',
-    criteria: [
-      { key: 'taste', label: 'Taste' },
-      { key: 'presentation', label: 'Presentation' },
-      { key: 'portion_size', label: 'Portion Size' },
-      { key: 'flavor_profile', label: 'Flavor Profile' },
-    ],
-  },
-  customer_service: {
-    label: 'Customer Service',
-    criteria: [
-      { key: 'staff_attitude', label: 'Staff Attitude' },
-      { key: 'efficiency', label: 'Efficiency' },
-      { key: 'knowledge_of_menu', label: 'Knowledge of Menu' },
-      { key: 'responsiveness', label: 'Responsiveness' },
-    ],
-  },
-  establishment: {
-    label: 'Establishment',
-    criteria: [
-      { key: 'cleanliness', label: 'Cleanliness' },
-      { key: 'ambiance', label: 'Ambiance' },
-      { key: 'location', label: 'Location' },
-      { key: 'accessibility', label: 'Accessibility' },
-    ],
-  },
-};
-
-export const BUSINESS_COMPARTMENTS: Record<string, Compartment> = {
-  customer_service: {
-    label: 'Customer Service',
-    criteria: [
-      { key: 'staff_helpfulness', label: 'Staff Helpfulness' },
-      { key: 'wait_times', label: 'Wait Times' },
-      { key: 'product_knowledge', label: 'Product Knowledge' },
-      { key: 'problem_resolution', label: 'Problem Resolution' },
-    ],
-  },
-  shopping_experience: {
-    label: 'Shopping Experience',
-    criteria: [
-      { key: 'product_availability', label: 'Product Availability' },
-      { key: 'store_layout', label: 'Store Layout' },
-      { key: 'pricing_transparency', label: 'Pricing Transparency' },
-      { key: 'checkout_process', label: 'Checkout Process' },
-    ],
-  },
-  establishment: {
-    label: 'Establishment',
-    criteria: [
-      { key: 'store_cleanliness', label: 'Store Cleanliness' },
-      { key: 'safety_standards', label: 'Safety Standards' },
-      { key: 'accessibility', label: 'Accessibility' },
-      { key: 'overall_atmosphere', label: 'Overall Atmosphere' },
-    ],
-  },
-};
-
-export const FOODTRUCK_COMPARTMENTS: Record<string, Compartment> = {
+export const SHARED_COMPARTMENTS: Record<string, Compartment> = {
   food: {
     label: 'Food',
     criteria: [
@@ -70,25 +10,28 @@ export const FOODTRUCK_COMPARTMENTS: Record<string, Compartment> = {
       { key: 'menu_variety', label: 'Menu Variety' },
     ],
   },
-  service: {
-    label: 'Service',
+  customer_service: {
+    label: 'Customer Service',
     criteria: [
-      { key: 'speed', label: 'Speed' },
-      { key: 'friendliness', label: 'Friendliness' },
-      { key: 'order_accuracy', label: 'Order Accuracy' },
-      { key: 'communication', label: 'Communication' },
+      { key: 'staff_friendliness', label: 'Staff Friendliness' },
+      { key: 'menu_knowledge', label: 'Menu Knowledge' },
+      { key: 'service_efficiency', label: 'Service Efficiency' },
+      { key: 'attentiveness', label: 'Attentiveness' },
     ],
   },
-  setup: {
-    label: 'Setup & Location',
+  establishment: {
+    label: 'Establishment',
     criteria: [
-      { key: 'cleanliness', label: 'Cleanliness' },
-      { key: 'accessibility', label: 'Accessibility' },
-      { key: 'wait_area', label: 'Wait Area' },
-      { key: 'overall_vibe', label: 'Overall Vibe' },
+      { key: 'location_accessibility', label: 'Location/Accessibility' },
+      { key: 'bang_for_buck', label: 'Bang for your Buck' },
     ],
   },
 };
+
+// Backward-compatible aliases
+export const RESTAURANT_COMPARTMENTS = SHARED_COMPARTMENTS;
+export const BUSINESS_COMPARTMENTS = SHARED_COMPARTMENTS;
+export const FOODTRUCK_COMPARTMENTS = SHARED_COMPARTMENTS;
 
 export const MAX_IMAGES = 10;
 export const MAX_IMAGE_SIZE_MB = 5;

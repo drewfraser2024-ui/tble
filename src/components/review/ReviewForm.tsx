@@ -1,16 +1,14 @@
 'use client';
 
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useMemo } from 'react';
 import { useRouter } from 'next/navigation';
 import StarRating from '@/components/ui/StarRating';
 import ImageUploader from '@/components/ui/ImageUploader';
 import VoiceToTextButton from '@/components/ui/VoiceToTextButton';
-import RestaurantCompartments from './RestaurantCompartments';
-import BusinessCompartments from './BusinessCompartments';
-import FoodTruckCompartments from './FoodTruckCompartments';
+import SharedCompartments from './SharedCompartments';
 import { createClient } from '@/lib/supabase/client';
 import { useImageUpload } from '@/hooks/useImageUpload';
-import { MIN_REVIEW_LENGTH } from '@/lib/constants';
+import { MIN_REVIEW_LENGTH, SHARED_COMPARTMENTS } from '@/lib/constants';
 import type { BusinessCategory, ReviewFormState } from '@/types/review';
 
 interface ReviewFormProps {
@@ -25,13 +23,31 @@ export default function ReviewForm({ businessId, businessName, category }: Revie
   const { uploadMultiple } = useImageUpload();
 
   const [form, setForm] = useState<ReviewFormState>({
-    overallRating: 0,
     compartments: {},
     reviewText: '',
     images: [],
     isSubmitting: false,
     errors: {},
   });
+
+  // Auto-calculate overall rating from all compartment criteria
+  const calculatedOverallRating = useMemo(() => {
+    const allRatings: number[] = [];
+    Object.values(form.compartments).forEach((criteria) => {
+      Object.values(criteria).forEach((rating) => {
+        if (rating > 0) allRatings.push(rating);
+      });
+    });
+    if (allRatings.length === 0) return 0;
+    return Math.round(allRatings.reduce((a, b) => a + b, 0) / allRatings.length);
+  }, [form.compartments]);
+
+  // Count total criteria needed
+  const totalCriteria = useMemo(() => {
+    return Object.values(SHARED_COMPARTMENTS).reduce(
+      (sum, c) => sum + c.criteria.length, 0
+    );
+  }, []);
 
   const handleCompartmentRating = useCallback(
     (compartment: string, criterion: string, rating: number) => {
@@ -60,9 +76,17 @@ export default function ReviewForm({ businessId, businessName, category }: Revie
   function validate(): boolean {
     const errors: Record<string, string> = {};
 
-    if (form.overallRating === 0) {
-      errors.overallRating = 'Please provide an overall rating';
+    // Check all compartment criteria are rated
+    const ratedCount: number[] = [];
+    Object.values(form.compartments).forEach((criteria) => {
+      Object.values(criteria).forEach((r) => {
+        if (r > 0) ratedCount.push(r);
+      });
+    });
+    if (ratedCount.length < totalCriteria) {
+      errors.compartments = 'Please rate all criteria';
     }
+
     if (form.reviewText.length < MIN_REVIEW_LENGTH) {
       errors.reviewText = `Review must be at least ${MIN_REVIEW_LENGTH} characters`;
     }
@@ -84,14 +108,14 @@ export default function ReviewForm({ businessId, businessName, category }: Revie
         return;
       }
 
-      // Insert review
+      // Insert review with auto-calculated overall rating
       const { data: review, error: reviewError } = await supabase
         .from('reviews')
         .insert({
           business_id: businessId,
           user_id: user.id,
           user_display_name: user.user_metadata?.full_name || user.email || 'Anonymous',
-          overall_rating: form.overallRating,
+          overall_rating: calculatedOverallRating,
           review_text: form.reviewText,
         })
         .select('id')
@@ -157,45 +181,31 @@ export default function ReviewForm({ businessId, businessName, category }: Revie
       </div>
 
       {/* Compartment Ratings */}
-      {category === 'restaurant' ? (
-        <RestaurantCompartments
-          ratings={form.compartments}
-          onRatingChange={handleCompartmentRating}
-        />
-      ) : category === 'foodtruck' ? (
-        <FoodTruckCompartments
-          ratings={form.compartments}
-          onRatingChange={handleCompartmentRating}
-        />
-      ) : (
-        <BusinessCompartments
-          ratings={form.compartments}
-          onRatingChange={handleCompartmentRating}
-        />
+      <SharedCompartments
+        ratings={form.compartments}
+        onRatingChange={handleCompartmentRating}
+      />
+
+      {/* Compartment error */}
+      {form.errors.compartments && (
+        <p className="text-pink text-sm text-center">{form.errors.compartments}</p>
       )}
 
-      {/* Overall Rating */}
-      <div className="bg-white rounded-xl border border-gray-100 p-5 shadow-sm">
-        <h3 className="text-lg font-bold text-black mb-3 flex items-center gap-2">
-          <div className="w-1 h-5 rounded-full bg-gold" />
-          Overall Rating
-        </h3>
-        <div className="flex items-center gap-3">
-          <StarRating
-            value={form.overallRating}
-            onChange={(rating) =>
-              setForm((prev) => ({ ...prev, overallRating: rating, errors: { ...prev.errors, overallRating: '' } }))
-            }
-            size="lg"
-          />
-          {form.overallRating > 0 && (
-            <span className="text-sm text-gray-500">{form.overallRating}/5</span>
-          )}
+      {/* Auto-calculated Overall Rating */}
+      {calculatedOverallRating > 0 && (
+        <div className="bg-white rounded-xl border border-gray-100 p-5 shadow-sm">
+          <h3 className="text-lg font-bold text-black mb-3 flex items-center gap-2">
+            <div className="w-1 h-5 rounded-full bg-gold" />
+            Your Overall Rating
+          </h3>
+          <div className="flex items-center gap-3">
+            <StarRating value={calculatedOverallRating} size="lg" readOnly />
+            <span className="text-sm text-gray-500">
+              {calculatedOverallRating}/5 (calculated from your ratings)
+            </span>
+          </div>
         </div>
-        {form.errors.overallRating && (
-          <p className="text-pink text-sm mt-2">{form.errors.overallRating}</p>
-        )}
-      </div>
+      )}
 
       {/* Written Review */}
       <div className="bg-white rounded-xl border border-gray-100 p-5 shadow-sm">

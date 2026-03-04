@@ -3,9 +3,12 @@ import type { Review } from '@/types/review';
 
 interface ReviewListProps {
   reviews: Review[];
+  isOwner?: boolean;
+  isPremium?: boolean;
+  businessId?: string;
 }
 
-export default function ReviewList({ reviews }: ReviewListProps) {
+export default function ReviewList({ reviews, isOwner, isPremium, businessId }: ReviewListProps) {
   if (reviews.length === 0) {
     return (
       <div className="text-center py-12">
@@ -20,7 +23,13 @@ export default function ReviewList({ reviews }: ReviewListProps) {
   return (
     <div className="space-y-4">
       {reviews.map((review) => (
-        <ReviewDisplay key={review.id} review={review} />
+        <ReviewDisplay
+          key={review.id}
+          review={review}
+          isOwner={isOwner}
+          isPremium={isPremium}
+          businessId={businessId}
+        />
       ))}
     </div>
   );

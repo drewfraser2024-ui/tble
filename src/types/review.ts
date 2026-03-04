@@ -16,6 +16,8 @@ export interface Business {
   cover_image_url: string | null;
   avg_overall_rating: number;
   review_count: number;
+  is_premium: boolean;
+  owner_user_id: string | null;
   created_at: string;
   updated_at: string;
 }
@@ -32,6 +34,7 @@ export interface Review {
   ratings?: ReviewRating[];
   images?: ReviewImage[];
   comments?: Comment[];
+  owner_response?: OwnerResponse[];
 }
 
 export interface ReviewRating {
@@ -61,6 +64,18 @@ export interface Comment {
   created_at: string;
 }
 
+export interface OwnerResponse {
+  id: string;
+  review_id: string;
+  business_id: string;
+  user_id: string;
+  user_display_name: string;
+  response_text: string;
+  image_url: string | null;
+  storage_path: string | null;
+  created_at: string;
+}
+
 export interface CompartmentCriterion {
   key: string;
   label: string;
@@ -72,7 +87,6 @@ export interface Compartment {
 }
 
 export interface ReviewFormState {
-  overallRating: number;
   compartments: Record<string, Record<string, number>>;
   reviewText: string;
   images: {

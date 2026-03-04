@@ -1,13 +1,18 @@
 import StarRating from '@/components/ui/StarRating';
 import CommentSection from './CommentSection';
+import OwnerResponse from './OwnerResponse';
+import OwnerResponseForm from './OwnerResponseForm';
 import { formatDate } from '@/lib/utils';
 import type { Review } from '@/types/review';
 
 interface ReviewDisplayProps {
   review: Review;
+  isOwner?: boolean;
+  isPremium?: boolean;
+  businessId?: string;
 }
 
-export default function ReviewDisplay({ review }: ReviewDisplayProps) {
+export default function ReviewDisplay({ review, isOwner, isPremium, businessId }: ReviewDisplayProps) {
   // Group ratings by compartment
   const compartmentRatings: Record<string, { criterion: string; rating: number }[]> = {};
   review.ratings?.forEach((r) => {
@@ -68,6 +73,13 @@ export default function ReviewDisplay({ review }: ReviewDisplayProps) {
           ))}
         </div>
       )}
+
+      {/* Owner Response */}
+      {review.owner_response && review.owner_response.length > 0 ? (
+        <OwnerResponse response={review.owner_response[0]} />
+      ) : isOwner && isPremium && businessId ? (
+        <OwnerResponseForm reviewId={review.id} businessId={businessId} />
+      ) : null}
 
       {/* Comments */}
       <CommentSection reviewId={review.id} initialComments={review.comments || []} />
