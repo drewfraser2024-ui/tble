@@ -19,6 +19,8 @@ const customerServiceSchema = z.object({
 const establishmentSchema = z.object({
   location_accessibility: ratingSchema,
   bang_for_buck: ratingSchema,
+  ambience: ratingSchema,
+  cleanliness: ratingSchema,
 });
 
 const sharedCompartmentsSchema = z.object({

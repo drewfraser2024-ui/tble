@@ -24,6 +24,8 @@ export const SHARED_COMPARTMENTS: Record<string, Compartment> = {
     criteria: [
       { key: 'location_accessibility', label: 'Location/Accessibility' },
       { key: 'bang_for_buck', label: 'Bang for your Buck' },
+      { key: 'ambience', label: 'Ambience' },
+      { key: 'cleanliness', label: 'Cleanliness' },
     ],
   },
 };
