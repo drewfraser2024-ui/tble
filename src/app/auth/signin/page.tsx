@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
+import Image from 'next/image';
 import { createClient } from '@/lib/supabase/client';
 
 export default function SignInPage() {
@@ -37,9 +38,7 @@ export default function SignInPage() {
     <div className="min-h-[calc(100vh-8rem)] flex items-center justify-center px-4">
       <div className="w-full max-w-md">
         <div className="text-center mb-8">
-          <div className="w-12 h-12 rounded-xl bg-turquoise flex items-center justify-center mx-auto mb-4">
-            <span className="text-white font-bold text-xl">T</span>
-          </div>
+          <Image src="/logo.svg" alt="Tble" width={100} height={100} className="mx-auto mb-2" />
           <h1 className="text-2xl font-bold text-black">Welcome back</h1>
           <p className="text-gray-500 text-sm mt-1">Sign in to your Tble account</p>
         </div>

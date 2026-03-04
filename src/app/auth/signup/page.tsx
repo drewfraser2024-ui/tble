@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { createClient } from '@/lib/supabase/client';
 
 export default function SignUpPage() {
@@ -67,9 +68,7 @@ export default function SignUpPage() {
     <div className="min-h-[calc(100vh-8rem)] flex items-center justify-center px-4">
       <div className="w-full max-w-md">
         <div className="text-center mb-8">
-          <div className="w-12 h-12 rounded-xl bg-turquoise flex items-center justify-center mx-auto mb-4">
-            <span className="text-white font-bold text-xl">T</span>
-          </div>
+          <Image src="/logo.svg" alt="Tble" width={100} height={100} className="mx-auto mb-2" />
           <h1 className="text-2xl font-bold text-black">Create your account</h1>
           <p className="text-gray-500 text-sm mt-1">Join Tble to share your reviews</p>
         </div>

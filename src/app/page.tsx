@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import Image from 'next/image';
 
 export default function HomePage() {
   return (
@@ -7,12 +8,16 @@ export default function HomePage() {
       <section className="relative bg-gradient-to-br from-turquoise via-turquoise-dark to-black py-20 sm:py-32">
         <div className="absolute inset-0 bg-black/10" />
         <div className="relative max-w-4xl mx-auto px-4 text-center">
-          <div className="inline-flex items-center gap-1 bg-white/20 backdrop-blur-sm rounded-full px-4 py-1.5 mb-6">
-            <span className="text-gold-light font-semibold text-sm">Let&apos;s Table It</span>
+          <div className="mb-6">
+            <Image
+              src="/logo.svg"
+              alt="Tble - Let's Table It"
+              width={180}
+              height={180}
+              className="mx-auto drop-shadow-lg brightness-0 invert"
+              priority
+            />
           </div>
-          <h1 className="text-4xl sm:text-6xl font-bold text-white mb-4 tracking-tight">
-            Tble
-          </h1>
           <p className="text-lg sm:text-xl text-white/90 mb-12 max-w-2xl mx-auto">
             Share detailed, meaningful reviews. Rate every aspect of your experience
             — from food to service to atmosphere.

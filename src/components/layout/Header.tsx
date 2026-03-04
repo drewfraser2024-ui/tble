@@ -1,6 +1,7 @@
 'use client';
 
 import Link from 'next/link';
+import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { useState, useEffect, useRef } from 'react';
 import { createClient } from '@/lib/supabase/client';
@@ -64,9 +65,7 @@ export default function Header() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
           <Link href="/" className="flex items-center gap-2">
-            <div className="w-9 h-9 rounded-lg bg-turquoise flex items-center justify-center">
-              <span className="text-white font-bold text-lg">T</span>
-            </div>
+            <Image src="/logo-icon.svg" alt="Tble" width={36} height={36} />
             <span className="text-xl font-bold text-black">
               Tble
             </span>

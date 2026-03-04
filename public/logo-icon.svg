@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 40 40" fill="none">
+  <!-- Table top -->
+  <rect x="4" y="10" width="32" height="6" rx="3" fill="#2DD4BF"/>
+  <!-- Table legs -->
+  <rect x="8" y="16" width="3" height="12" rx="1" fill="#1a2b3c"/>
+  <rect x="29" y="16" width="3" height="12" rx="1" fill="#1a2b3c"/>
+  <!-- Shadow -->
+  <ellipse cx="20" cy="30" rx="10" ry="2.5" fill="#2DD4BF" opacity="0.15"/>
+</svg>
