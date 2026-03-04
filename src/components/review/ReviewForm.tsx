@@ -8,7 +8,7 @@ import VoiceToTextButton from '@/components/ui/VoiceToTextButton';
 import SharedCompartments from './SharedCompartments';
 import { createClient } from '@/lib/supabase/client';
 import { useImageUpload } from '@/hooks/useImageUpload';
-import { MIN_REVIEW_LENGTH, SHARED_COMPARTMENTS } from '@/lib/constants';
+import { MIN_REVIEW_LENGTH, getCompartmentsForCategory } from '@/lib/constants';
 import type { BusinessCategory, ReviewFormState } from '@/types/review';
 
 interface ReviewFormProps {
@@ -42,12 +42,13 @@ export default function ReviewForm({ businessId, businessName, category }: Revie
     return Math.round(allRatings.reduce((a, b) => a + b, 0) / allRatings.length);
   }, [form.compartments]);
 
-  // Count total criteria needed
+  // Count total criteria needed for this category
   const totalCriteria = useMemo(() => {
-    return Object.values(SHARED_COMPARTMENTS).reduce(
+    const compartments = getCompartmentsForCategory(category);
+    return Object.values(compartments).reduce(
       (sum, c) => sum + c.criteria.length, 0
     );
-  }, []);
+  }, [category]);
 
   const handleCompartmentRating = useCallback(
     (compartment: string, criterion: string, rating: number) => {
@@ -184,6 +185,7 @@ export default function ReviewForm({ businessId, businessName, category }: Revie
       <SharedCompartments
         ratings={form.compartments}
         onRatingChange={handleCompartmentRating}
+        category={category}
       />
 
       {/* Compartment error */}

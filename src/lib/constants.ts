@@ -1,4 +1,4 @@
-import type { Compartment } from '@/types/review';
+import type { BusinessCategory, Compartment } from '@/types/review';
 
 export const SHARED_COMPARTMENTS: Record<string, Compartment> = {
   food: {
@@ -28,10 +28,20 @@ export const SHARED_COMPARTMENTS: Record<string, Compartment> = {
   },
 };
 
-// Backward-compatible aliases
+// Business/Store: no Food ratings
+export const BUSINESS_COMPARTMENTS: Record<string, Compartment> = {
+  customer_service: SHARED_COMPARTMENTS.customer_service,
+  establishment: SHARED_COMPARTMENTS.establishment,
+};
+
 export const RESTAURANT_COMPARTMENTS = SHARED_COMPARTMENTS;
-export const BUSINESS_COMPARTMENTS = SHARED_COMPARTMENTS;
 export const FOODTRUCK_COMPARTMENTS = SHARED_COMPARTMENTS;
+
+/** Return the correct compartments for a given category */
+export function getCompartmentsForCategory(category: BusinessCategory): Record<string, Compartment> {
+  if (category === 'business') return BUSINESS_COMPARTMENTS;
+  return SHARED_COMPARTMENTS;
+}
 
 export const MAX_IMAGES = 10;
 export const MAX_IMAGE_SIZE_MB = 5;
