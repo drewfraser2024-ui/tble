@@ -10,6 +10,7 @@ export default async function BusinessReviewPage({ params }: { params: Promise<{
     .from('businesses')
     .select('id, name')
     .eq('id', id)
+    .eq('category', 'business')
     .single();
 
   if (!business) notFound();

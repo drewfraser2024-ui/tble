@@ -49,7 +49,7 @@ export default async function FoodTruckListPage() {
               <h3 className="font-bold text-black group-hover:text-turquoise-dark transition-colors">
                 {biz.name}
               </h3>
-              <p className="text-sm text-gray-400 mt-1">{biz.address}, {biz.city}</p>
+              <p className="text-sm text-gray-400 mt-1">{biz.city}{biz.state ? `, ${biz.state}` : ''} Area</p>
               <div className="flex items-center gap-2 mt-2">
                 <StarRating value={Math.round(biz.avg_overall_rating)} size="sm" readOnly />
                 <span className="text-xs text-gray-400">

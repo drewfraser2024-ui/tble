@@ -102,6 +102,12 @@ export default function ReviewForm({ businessId, businessName, category }: Revie
 
     setForm((prev) => ({ ...prev, isSubmitting: true, errors: {} }));
 
+    let uploadedImages: {
+      storagePath: string;
+      publicUrl: string;
+      type: string;
+    }[] = [];
+
     try {
       const { data: { user } } = await supabase.auth.getUser();
       if (!user) {
@@ -109,25 +115,33 @@ export default function ReviewForm({ businessId, businessName, category }: Revie
         return;
       }
 
+      // Upload images first so upload failures do not leave a partial review in the database
+      const reviewId = crypto.randomUUID();
+      if (form.images.length > 0) {
+        uploadedImages = await uploadMultiple(
+          form.images.map((img) => ({ file: img.file, type: img.type })),
+          reviewId
+        );
+      }
+
       // Insert review with auto-calculated overall rating
-      const { data: review, error: reviewError } = await supabase
+      const { error: reviewError } = await supabase
         .from('reviews')
         .insert({
+          id: reviewId,
           business_id: businessId,
           user_id: user.id,
           user_display_name: user.user_metadata?.full_name || user.email || 'Anonymous',
           overall_rating: calculatedOverallRating,
           review_text: form.reviewText,
-        })
-        .select('id')
-        .single();
+        });
 
       if (reviewError) throw reviewError;
 
       // Insert ratings
       const ratingRows = Object.entries(form.compartments).flatMap(([compartment, criteria]) =>
         Object.entries(criteria).map(([criterion, rating]) => ({
-          review_id: review.id,
+          review_id: reviewId,
           compartment,
           criterion,
           rating,
@@ -141,15 +155,9 @@ export default function ReviewForm({ businessId, businessName, category }: Revie
         if (ratingsError) throw ratingsError;
       }
 
-      // Upload images
-      if (form.images.length > 0) {
-        const uploaded = await uploadMultiple(
-          form.images.map((img) => ({ file: img.file, type: img.type })),
-          review.id
-        );
-
-        const imageRows = uploaded.map((img, i) => ({
-          review_id: review.id,
+      if (uploadedImages.length > 0) {
+        const imageRows = uploadedImages.map((img, i) => ({
+          review_id: reviewId,
           storage_path: img.storagePath,
           image_url: img.publicUrl,
           image_type: img.type,
@@ -165,6 +173,11 @@ export default function ReviewForm({ businessId, businessName, category }: Revie
       router.push(`/${category}/${businessId}`);
       router.refresh();
     } catch (err) {
+      if (uploadedImages.length > 0) {
+        await supabase.storage
+          .from('review-images')
+          .remove(uploadedImages.map((img) => img.storagePath));
+      }
       console.error('Review submission failed:', err);
       setForm((prev) => ({
         ...prev,

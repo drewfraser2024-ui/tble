@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
+import { MapContainer, TileLayer, Marker, Popup, useMap } from 'react-leaflet';
 import L from 'leaflet';
 import Link from 'next/link';
 import 'leaflet/dist/leaflet.css';
@@ -29,6 +29,16 @@ interface LeafletMapProps {
   businesses: MapBusiness[];
 }
 
+function RecenterMap({ center }: { center: [number, number] }) {
+  const map = useMap();
+
+  useEffect(() => {
+    map.setView(center, map.getZoom());
+  }, [center, map]);
+
+  return null;
+}
+
 export default function LeafletMap({ businesses }: LeafletMapProps) {
   const [center, setCenter] = useState<[number, number]>([40.7128, -74.006]); // Default NYC
 
@@ -48,6 +58,7 @@ export default function LeafletMap({ businesses }: LeafletMapProps) {
       className="w-full h-full rounded-xl"
       style={{ minHeight: '500px' }}
     >
+      <RecenterMap center={center} />
       <TileLayer
         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"

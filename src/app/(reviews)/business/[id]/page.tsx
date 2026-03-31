@@ -12,6 +12,7 @@ export default async function BusinessDetailPage({ params }: { params: Promise<{
     .from('businesses')
     .select('*')
     .eq('id', id)
+    .eq('category', 'business')
     .single();
 
   if (!business) notFound();

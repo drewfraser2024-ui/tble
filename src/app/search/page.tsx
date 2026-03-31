@@ -63,7 +63,9 @@ export default async function SearchPage({
               <h3 className="font-bold text-black group-hover:text-turquoise-dark transition-colors">
                 {biz.name}
               </h3>
-              <p className="text-sm text-gray-400 mt-1">{biz.address}, {biz.city}</p>
+              <p className="text-sm text-gray-400 mt-1">
+                {biz.category === 'foodtruck' ? `${biz.city} Area` : `${biz.address}, ${biz.city}`}
+              </p>
               <div className="flex items-center gap-2 mt-2">
                 <StarRating value={Math.round(Number(biz.avg_overall_rating))} size="sm" readOnly />
                 <span className="text-xs text-gray-400">({biz.review_count} reviews)</span>

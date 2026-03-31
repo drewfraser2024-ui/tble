@@ -12,6 +12,7 @@ export default async function FoodTruckDetailPage({ params }: { params: Promise<
     .from('businesses')
     .select('*')
     .eq('id', id)
+    .eq('category', 'foodtruck')
     .single();
 
   if (!business) notFound();
@@ -44,7 +45,7 @@ export default async function FoodTruckDetailPage({ params }: { params: Promise<
           />
         )}
         <h1 className="text-2xl font-bold text-black">{business.name}</h1>
-        <p className="text-gray-500 text-sm mt-1">{business.address}, {business.city}{business.state ? `, ${business.state}` : ''}</p>
+        <p className="text-gray-500 text-sm mt-1">{business.city}{business.state ? `, ${business.state}` : ''} Area</p>
         {business.description && (
           <p className="text-gray-600 text-sm mt-2">{business.description}</p>
         )}

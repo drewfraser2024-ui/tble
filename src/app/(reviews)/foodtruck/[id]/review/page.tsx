@@ -10,6 +10,7 @@ export default async function FoodTruckReviewPage({ params }: { params: Promise<
     .from('businesses')
     .select('id, name')
     .eq('id', id)
+    .eq('category', 'foodtruck')
     .single();
 
   if (!business) notFound();

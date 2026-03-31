@@ -7,33 +7,31 @@ interface SpeechRecognitionEvent {
   results: SpeechRecognitionResultList;
 }
 
+interface SpeechRecognitionLike {
+  continuous: boolean;
+  interimResults: boolean;
+  lang: string;
+  onresult: ((event: SpeechRecognitionEvent) => void) | null;
+  onerror: ((event: { error: string }) => void) | null;
+  onend: (() => void) | null;
+  start: () => void;
+  stop: () => void;
+}
+
+type SpeechRecognitionConstructor = new () => SpeechRecognitionLike;
+
 export function useSpeechRecognition() {
   const [isListening, setIsListening] = useState(false);
   const [transcript, setTranscript] = useState('');
-  const [isSupported, setIsSupported] = useState(false);
-  const recognitionRef = useRef<ReturnType<typeof createRecognition> | null>(null);
-
-  useEffect(() => {
-    const SpeechRecognition =
+  const recognitionRef = useRef<SpeechRecognitionLike | null>(null);
+  const isSupported =
+    typeof window !== 'undefined' &&
+    !!(
       (window as unknown as Record<string, unknown>).SpeechRecognition ||
-      (window as unknown as Record<string, unknown>).webkitSpeechRecognition;
-    setIsSupported(!!SpeechRecognition);
+      (window as unknown as Record<string, unknown>).webkitSpeechRecognition
+    );
 
-    if (SpeechRecognition) {
-      recognitionRef.current = createRecognition(SpeechRecognition as new () => ReturnType<typeof createRecognition>);
-    }
-  }, []);
-
-  function createRecognition(SpeechRecognition: new () => {
-    continuous: boolean;
-    interimResults: boolean;
-    lang: string;
-    onresult: ((event: SpeechRecognitionEvent) => void) | null;
-    onerror: ((event: { error: string }) => void) | null;
-    onend: (() => void) | null;
-    start: () => void;
-    stop: () => void;
-  }) {
+  const createRecognition = useCallback((SpeechRecognition: SpeechRecognitionConstructor) => {
     const recognition = new SpeechRecognition();
     recognition.continuous = true;
     recognition.interimResults = false;
@@ -60,7 +58,23 @@ export function useSpeechRecognition() {
     };
 
     return recognition;
-  }
+  }, []);
+
+  useEffect(() => {
+    if (!isSupported) {
+      return;
+    }
+
+    const SpeechRecognition =
+      (window as unknown as Record<string, unknown>).SpeechRecognition ||
+      (window as unknown as Record<string, unknown>).webkitSpeechRecognition;
+    recognitionRef.current = createRecognition(SpeechRecognition as SpeechRecognitionConstructor);
+
+    return () => {
+      recognitionRef.current?.stop();
+      recognitionRef.current = null;
+    };
+  }, [createRecognition, isSupported]);
 
   const startListening = useCallback(() => {
     if (recognitionRef.current) {
