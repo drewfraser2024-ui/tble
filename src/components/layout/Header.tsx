@@ -104,6 +104,15 @@ export default function Header() {
               Map
             </Link>
 
+            {user && (
+              <Link
+                href="/submit"
+                className="text-sm font-medium text-gray-600 hover:text-turquoise-dark transition-colors"
+              >
+                Submit
+              </Link>
+            )}
+
             {user ? (
               <div ref={dropdownRef} className="relative">
                 <button

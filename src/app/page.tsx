@@ -98,6 +98,24 @@ export default function HomePage() {
         </div>
       </section>
 
+      {/* Submit CTA */}
+      <section className="py-10 bg-white border-t border-gray-100">
+        <div className="max-w-2xl mx-auto px-4 text-center">
+          <p className="text-gray-600 mb-3">
+            Know a great spot that&apos;s not on Tble yet?
+          </p>
+          <Link
+            href="/submit"
+            className="inline-flex items-center gap-2 px-6 py-2.5 bg-black hover:bg-gray-800 text-white font-semibold rounded-xl transition-colors text-sm"
+          >
+            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
+            </svg>
+            Submit a Business
+          </Link>
+        </div>
+      </section>
+
       {/* Features Section */}
       <section className="py-16 bg-black">
         <div className="max-w-5xl mx-auto px-4">
