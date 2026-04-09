@@ -166,6 +166,15 @@ export default function Header() {
                           </span>
                         )}
                       </div>
+                      {isOwner && (
+                        <Link
+                          href="/dashboard"
+                          onClick={() => setShowDropdown(false)}
+                          className="block w-full text-left px-4 py-2 text-sm text-gray-600 hover:bg-gray-50 hover:text-gold transition-colors"
+                        >
+                          Dashboard
+                        </Link>
+                      )}
                       <button
                         onClick={handleSignOut}
                         className="w-full text-left px-4 py-2 text-sm text-gray-600 hover:bg-gray-50 hover:text-pink transition-colors"
