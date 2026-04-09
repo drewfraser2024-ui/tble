@@ -1,9 +1,27 @@
 import { createServerClient } from '@supabase/ssr';
 import { NextResponse, type NextRequest } from 'next/server';
 
+const LAUNCH_PASSWORD = process.env.LAUNCH_PASSWORD || 'tableit2026';
+const IS_GATED = process.env.LAUNCH_GATE !== 'off';
+
 export async function middleware(request: NextRequest) {
+  // Launch gate: restrict access until ready to launch
+  if (IS_GATED) {
+    const hasAccess = request.cookies.get('launch_access')?.value === 'granted';
+    const isGatePage = request.nextUrl.pathname === '/gate';
+
+    const isGateApi = request.nextUrl.pathname === '/api/gate';
+
+    if (!hasAccess && !isGatePage && !isGateApi) {
+      return NextResponse.redirect(new URL('/gate', request.url));
+    }
+  }
+
+  const requestHeaders = new Headers(request.headers);
+  requestHeaders.set('x-pathname', request.nextUrl.pathname);
+
   let supabaseResponse = NextResponse.next({
-    request,
+    request: { headers: requestHeaders },
   });
 
   const supabase = createServerClient(

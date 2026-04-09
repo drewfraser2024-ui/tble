@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
+import { headers } from "next/headers";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import "./globals.css";
@@ -19,19 +20,23 @@ export const metadata: Metadata = {
   description: "Rate and review restaurants, chefs, bakers, stores, and businesses with detailed compartment-based reviews.",
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const headersList = await headers();
+  const pathname = headersList.get('x-pathname') || '';
+  const isGatePage = pathname === '/gate';
+
   return (
     <html lang="en">
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased flex flex-col min-h-screen`}
       >
-        <Header />
+        {!isGatePage && <Header />}
         <main className="flex-1">{children}</main>
-        <Footer />
+        {!isGatePage && <Footer />}
       </body>
     </html>
   );
