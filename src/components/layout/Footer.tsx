@@ -1,3 +1,5 @@
+import Link from 'next/link';
+
 export default function Footer() {
   return (
     <footer className="bg-black text-white py-8 mt-auto">
@@ -10,9 +12,14 @@ export default function Footer() {
             <span className="font-bold">Tble</span>
             <span className="text-gray-400 text-sm ml-2">Let&apos;s Table It</span>
           </div>
-          <p className="text-gray-400 text-sm">
-            &copy; {new Date().getFullYear()} Tble. All rights reserved.
-          </p>
+          <div className="flex items-center gap-4">
+            <Link href="/privacy" className="text-gray-400 text-sm hover:text-turquoise transition-colors">
+              Privacy Policy
+            </Link>
+            <p className="text-gray-400 text-sm">
+              &copy; {new Date().getFullYear()} Tble. All rights reserved.
+            </p>
+          </div>
         </div>
       </div>
     </footer>
