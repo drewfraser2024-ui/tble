@@ -7,24 +7,24 @@ export const metadata: Metadata = {
 
 export default function PrivacyPolicyPage() {
   return (
-    <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-      <h1 className="text-3xl font-bold mb-2">Privacy Policy</h1>
-      <p className="text-gray-500 mb-8">Last updated: April 9, 2026</p>
+    <div className="max-w-2xl mx-auto px-5 py-8">
+      <h1 className="text-3xl font-bold text-white mb-2">Privacy Policy</h1>
+      <p className="text-text-lo mb-8">Last updated: April 9, 2026</p>
 
-      <div className="space-y-8 text-gray-700">
+      <div className="space-y-8 text-text-mid leading-relaxed">
         <section>
-          <h2 className="text-xl font-semibold text-black mb-3">1. Introduction</h2>
+          <h2 className="text-xl font-semibold text-white mb-3">1. Introduction</h2>
           <p>
-            Welcome to Tble (&quot;Let&apos;s Table It&quot;). We are committed to protecting your
+            Welcome to Tble It. We are committed to protecting your
             privacy. This Privacy Policy explains how we collect, use, disclose, and safeguard your
             information when you use our platform.
           </p>
         </section>
 
         <section>
-          <h2 className="text-xl font-semibold text-black mb-3">2. Information We Collect</h2>
+          <h2 className="text-xl font-semibold text-white mb-3">2. Information We Collect</h2>
 
-          <h3 className="font-semibold text-black mt-4 mb-2">Account Information</h3>
+          <h3 className="font-semibold text-white mt-4 mb-2">Account Information</h3>
           <p>When you create an account, we collect:</p>
           <ul className="list-disc pl-6 mt-2 space-y-1">
             <li>Email address</li>
@@ -33,7 +33,7 @@ export default function PrivacyPolicyPage() {
             <li>Account role (user or business owner)</li>
           </ul>
 
-          <h3 className="font-semibold text-black mt-4 mb-2">User-Generated Content</h3>
+          <h3 className="font-semibold text-white mt-4 mb-2">User-Generated Content</h3>
           <p>When you use our platform, we collect content you choose to provide, including:</p>
           <ul className="list-disc pl-6 mt-2 space-y-1">
             <li>Reviews and ratings of businesses</li>
@@ -42,7 +42,7 @@ export default function PrivacyPolicyPage() {
             <li>Business owner responses to reviews</li>
           </ul>
 
-          <h3 className="font-semibold text-black mt-4 mb-2">Business Submissions</h3>
+          <h3 className="font-semibold text-white mt-4 mb-2">Business Submissions</h3>
           <p>When you submit a business to our platform, we collect:</p>
           <ul className="list-disc pl-6 mt-2 space-y-1">
             <li>Business name, category, and description</li>
@@ -51,7 +51,7 @@ export default function PrivacyPolicyPage() {
             <li>Your name and email as the submitter</li>
           </ul>
 
-          <h3 className="font-semibold text-black mt-4 mb-2">Automatically Collected Information</h3>
+          <h3 className="font-semibold text-white mt-4 mb-2">Automatically Collected Information</h3>
           <p>
             We use cookies to manage authentication sessions and keep you signed in. We do not use
             tracking cookies or third-party analytics services.
@@ -59,7 +59,7 @@ export default function PrivacyPolicyPage() {
         </section>
 
         <section>
-          <h2 className="text-xl font-semibold text-black mb-3">3. How We Use Your Information</h2>
+          <h2 className="text-xl font-semibold text-white mb-3">3. How We Use Your Information</h2>
           <p>We use the information we collect to:</p>
           <ul className="list-disc pl-6 mt-2 space-y-1">
             <li>Create and manage your account</li>
@@ -72,7 +72,7 @@ export default function PrivacyPolicyPage() {
         </section>
 
         <section>
-          <h2 className="text-xl font-semibold text-black mb-3">4. Voice-to-Text Feature</h2>
+          <h2 className="text-xl font-semibold text-white mb-3">4. Voice-to-Text Feature</h2>
           <p>
             Our platform offers an optional voice-to-text feature for writing reviews. This feature
             uses your browser&apos;s built-in Web Speech API. Audio is processed locally on your
@@ -81,7 +81,7 @@ export default function PrivacyPolicyPage() {
         </section>
 
         <section>
-          <h2 className="text-xl font-semibold text-black mb-3">5. Data Storage and Security</h2>
+          <h2 className="text-xl font-semibold text-white mb-3">5. Data Storage and Security</h2>
           <p>
             Your data is stored securely using Supabase, which provides encrypted database storage
             and file hosting. We implement row-level security policies to ensure users can only
@@ -94,7 +94,7 @@ export default function PrivacyPolicyPage() {
         </section>
 
         <section>
-          <h2 className="text-xl font-semibold text-black mb-3">6. Sharing of Information</h2>
+          <h2 className="text-xl font-semibold text-white mb-3">6. Sharing of Information</h2>
           <p>
             We do not sell, trade, or rent your personal information to third parties. Your reviews,
             ratings, and comments are publicly visible on the platform under your display name. We
@@ -108,7 +108,7 @@ export default function PrivacyPolicyPage() {
         </section>
 
         <section>
-          <h2 className="text-xl font-semibold text-black mb-3">7. Cookies</h2>
+          <h2 className="text-xl font-semibold text-white mb-3">7. Cookies</h2>
           <p>
             We use essential cookies solely for authentication and session management. These cookies
             are necessary for the platform to function and cannot be disabled. We do not use
@@ -117,7 +117,7 @@ export default function PrivacyPolicyPage() {
         </section>
 
         <section>
-          <h2 className="text-xl font-semibold text-black mb-3">8. Your Rights</h2>
+          <h2 className="text-xl font-semibold text-white mb-3">8. Your Rights</h2>
           <p>You have the right to:</p>
           <ul className="list-disc pl-6 mt-2 space-y-1">
             <li>Access the personal information we hold about you</li>
@@ -131,7 +131,7 @@ export default function PrivacyPolicyPage() {
         </section>
 
         <section>
-          <h2 className="text-xl font-semibold text-black mb-3">9. Children&apos;s Privacy</h2>
+          <h2 className="text-xl font-semibold text-white mb-3">9. Children&apos;s Privacy</h2>
           <p>
             Our platform is not intended for children under the age of 13. We do not knowingly
             collect personal information from children under 13. If we become aware that we have
@@ -140,7 +140,7 @@ export default function PrivacyPolicyPage() {
         </section>
 
         <section>
-          <h2 className="text-xl font-semibold text-black mb-3">10. Changes to This Policy</h2>
+          <h2 className="text-xl font-semibold text-white mb-3">10. Changes to This Policy</h2>
           <p>
             We may update this Privacy Policy from time to time. We will notify you of any changes
             by posting the new Privacy Policy on this page and updating the &quot;Last updated&quot;
@@ -150,12 +150,12 @@ export default function PrivacyPolicyPage() {
         </section>
 
         <section>
-          <h2 className="text-xl font-semibold text-black mb-3">11. Contact Us</h2>
+          <h2 className="text-xl font-semibold text-white mb-3">11. Contact Us</h2>
           <p>
             If you have any questions about this Privacy Policy or our data practices, please
             contact us at:
           </p>
-          <p className="mt-2 font-semibold">support@tble.app</p>
+          <p className="mt-2 font-semibold text-turquoise">support@tble.app</p>
         </section>
       </div>
     </div>
