@@ -50,7 +50,18 @@ export default function AppBar() {
           </button>
         )}
 
-        {/* Right: avatar or sign in */}
+        {/* Right: settings + avatar/sign in */}
+        <div className="flex items-center gap-1">
+          <Link
+            href="/settings"
+            aria-label="Settings"
+            className="w-9 h-9 flex items-center justify-center text-text-lo hover:text-white transition-colors"
+          >
+            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.7} d="M10.5 3.75h3l.4 2.2a6.3 6.3 0 0 1 1.9 1.1l2.1-.8 1.5 2.6-1.7 1.4a6.4 6.4 0 0 1 0 2.2l1.7 1.4-1.5 2.6-2.1-.8a6.3 6.3 0 0 1-1.9 1.1l-.4 2.2h-3l-.4-2.2a6.3 6.3 0 0 1-1.9-1.1l-2.1.8-1.5-2.6 1.7-1.4a6.4 6.4 0 0 1 0-2.2L4.1 8.85l1.5-2.6 2.1.8a6.3 6.3 0 0 1 1.9-1.1l.4-2.2Z" />
+              <circle cx="12" cy="12" r="2.4" strokeWidth={1.7} />
+            </svg>
+          </Link>
         {user ? (
           <Link
             href={isOwner ? '/dashboard' : '/account'}
@@ -68,6 +79,7 @@ export default function AppBar() {
             Log In
           </Link>
         )}
+        </div>
       </div>
     </header>
   );

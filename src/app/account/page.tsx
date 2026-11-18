@@ -73,6 +73,7 @@ export default function AccountPage() {
 
       <div className="glass-card divide-y divide-[var(--hairline)] overflow-hidden">
         {isOwner && <Row href="/dashboard" label="Owner Dashboard" />}
+        <Row href="/settings" label="Settings" />
         <Row href="/search" label="Find a place to review" />
         <Row href="/map" label="Explore the map" />
         <Row href="/privacy" label="Privacy Policy" />

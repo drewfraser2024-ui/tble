@@ -47,10 +47,15 @@ export default async function RootLayout({
   const showChrome = !isGate && !isAuth;
 
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen`}
       >
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `(function(){try{var s=JSON.parse(localStorage.getItem('tbleit:settings')||'{}');var d=document.documentElement;if(s.textScale){d.style.fontSize=(s.textScale*100)+'%';}if(s.reduceMotion){d.setAttribute('data-reduce-motion','true');}if(s.boldText){d.setAttribute('data-bold-text','true');}}catch(e){}})();`,
+          }}
+        />
         {showChrome && <AppBar />}
         <main className={showChrome ? "pt-appbar pb-bottomnav min-h-screen" : "min-h-screen"}>
           {children}
