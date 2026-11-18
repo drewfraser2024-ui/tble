@@ -2,7 +2,8 @@ import { createServerClient } from '@supabase/ssr';
 import { NextResponse, type NextRequest } from 'next/server';
 
 const LAUNCH_PASSWORD = process.env.LAUNCH_PASSWORD || 'tableit2026';
-const IS_GATED = process.env.LAUNCH_GATE !== 'off';
+// Gate is OFF by default (site is public). Set LAUNCH_GATE=on to re-enable the password screen.
+const IS_GATED = process.env.LAUNCH_GATE === 'on';
 
 export async function middleware(request: NextRequest) {
   // Launch gate: restrict access until ready to launch
