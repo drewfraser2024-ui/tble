@@ -43,5 +43,22 @@ export function useImageUpload() {
     return results;
   }
 
-  return { uploadImage, uploadMultiple };
+  async function uploadReceipt(file: File, reviewId: string): Promise<UploadResult> {
+    const ext = file.name.split('.').pop();
+    const path = `receipts/${reviewId}/${Date.now()}-${Math.random().toString(36).slice(2)}.${ext}`;
+
+    const { data, error } = await supabase.storage
+      .from('review-images')
+      .upload(path, file, { cacheControl: '3600', upsert: false });
+
+    if (error) throw error;
+
+    const { data: urlData } = supabase.storage
+      .from('review-images')
+      .getPublicUrl(data.path);
+
+    return { storagePath: data.path, publicUrl: urlData.publicUrl };
+  }
+
+  return { uploadImage, uploadMultiple, uploadReceipt };
 }

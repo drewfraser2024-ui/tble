@@ -6,6 +6,7 @@ import StarRating from '@/components/ui/StarRating';
 import ImageUploader from '@/components/ui/ImageUploader';
 import VoiceToTextButton from '@/components/ui/VoiceToTextButton';
 import SharedCompartments from './SharedCompartments';
+import ReceiptVerificationModal from './ReceiptVerificationModal';
 import { createClient } from '@/lib/supabase/client';
 import { useImageUpload } from '@/hooks/useImageUpload';
 import { MIN_REVIEW_LENGTH, getCompartmentsForCategory } from '@/lib/constants';
@@ -29,6 +30,15 @@ export default function ReviewForm({ businessId, businessName, category }: Revie
     isSubmitting: false,
     errors: {},
   });
+
+  // After a successful submit we hold the new review id and pop the receipt
+  // verification modal instead of navigating away immediately.
+  const [submittedReviewId, setSubmittedReviewId] = useState<string | null>(null);
+
+  const goToBusiness = useCallback(() => {
+    router.push(`/${category}/${businessId}`);
+    router.refresh();
+  }, [router, category, businessId]);
 
   // Auto-calculate overall rating from all compartment criteria
   const calculatedOverallRating = useMemo(() => {
@@ -170,8 +180,8 @@ export default function ReviewForm({ businessId, businessName, category }: Revie
         if (imagesError) throw imagesError;
       }
 
-      router.push(`/${category}/${businessId}`);
-      router.refresh();
+      // Review is saved — invite the reviewer to verify their visit with a receipt.
+      setSubmittedReviewId(reviewId);
     } catch (err) {
       if (uploadedImages.length > 0) {
         await supabase.storage
@@ -188,6 +198,7 @@ export default function ReviewForm({ businessId, businessName, category }: Revie
   }
 
   return (
+    <>
     <form onSubmit={handleSubmit} className="space-y-6">
       <div className="text-center mb-6">
         <h2 className="text-2xl font-bold text-black">Review {businessName}</h2>
@@ -286,5 +297,14 @@ export default function ReviewForm({ businessId, businessName, category }: Revie
         {form.isSubmitting ? 'Submitting...' : 'Submit Review'}
       </button>
     </form>
+
+    {submittedReviewId && (
+      <ReceiptVerificationModal
+        reviewId={submittedReviewId}
+        businessName={businessName}
+        onClose={goToBusiness}
+      />
+    )}
+    </>
   );
 }

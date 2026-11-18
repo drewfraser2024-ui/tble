@@ -29,6 +29,7 @@ type Review = {
   user_name: string;
   business_id: string;
   business_name?: string;
+  verification_status?: 'unverified' | 'pending' | 'verified';
 };
 
 const TABS = [
@@ -75,6 +76,7 @@ export default function OwnerDashboardPage() {
   const [user, setUser] = useState<User | null>(null);
   const [businesses, setBusinesses] = useState<Business[]>([]);
   const [recentReviews, setRecentReviews] = useState<Review[]>([]);
+  const [verifiedCount, setVerifiedCount] = useState(0);
   const [loading, setLoading] = useState(true);
   const [activeTab, setActiveTab] = useState<TabId>('overview');
 
@@ -104,7 +106,7 @@ export default function OwnerDashboardPage() {
         const bizIds = ownerBusinesses.map((b) => b.id);
         const { data: reviews } = await supabase
           .from('reviews')
-          .select('id, overall_rating, review_text, created_at, user_name, business_id')
+          .select('id, overall_rating, review_text, created_at, user_name, business_id, verification_status')
           .in('business_id', bizIds)
           .order('created_at', { ascending: false })
           .limit(10);
@@ -116,6 +118,15 @@ export default function OwnerDashboardPage() {
           }));
           setRecentReviews(enriched);
         }
+
+        // Verified-visit count across all of the owner's reviews (not just the recent 10)
+        const { count } = await supabase
+          .from('reviews')
+          .select('id', { count: 'exact', head: true })
+          .in('business_id', bizIds)
+          .eq('verification_status', 'verified');
+
+        setVerifiedCount(count || 0);
       }
 
       setLoading(false);
@@ -208,7 +219,7 @@ export default function OwnerDashboardPage() {
       {activeTab === 'overview' && (
         <div>
           {/* Stats Cards */}
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-5 mb-10">
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-5 mb-10">
             <div className="bg-white rounded-xl border border-gray-100 shadow-sm p-6">
               <p className="text-sm text-gray-500 mb-1">Your Businesses</p>
               <p className="text-3xl font-bold text-black">{businesses.length}</p>
@@ -224,6 +235,22 @@ export default function OwnerDashboardPage() {
                   {avgRating > 0 ? avgRating.toFixed(1) : '\u2014'}
                 </p>
                 {avgRating > 0 && renderStars(avgRating)}
+              </div>
+            </div>
+            <div className="bg-white rounded-xl border border-gray-100 shadow-sm p-6">
+              <p className="text-sm text-gray-500 mb-1 flex items-center gap-1">
+                <svg className="w-3.5 h-3.5 text-emerald-500" fill="currentColor" viewBox="0 0 20 20">
+                  <path fillRule="evenodd" d="M10 1l2.4 1.9 3-.3 1 2.9 2.6 1.5-1 2.9 1 2.9-2.6 1.5-1 2.9-3-.3L10 19l-2.4-1.9-3 .3-1-2.9L1 13.2l1-2.9-1-2.9 2.6-1.5 1-2.9 3 .3L10 1zm-1.2 11.6l4.6-4.6-1.1-1.1-3.5 3.5-1.5-1.5-1.1 1.1 2.6 2.6z" clipRule="evenodd" />
+                </svg>
+                Verified Visits
+              </p>
+              <div className="flex items-baseline gap-2">
+                <p className="text-3xl font-bold text-emerald-600">{verifiedCount}</p>
+                {totalReviews > 0 && (
+                  <span className="text-sm text-gray-400">
+                    {Math.round((verifiedCount / totalReviews) * 100)}%
+                  </span>
+                )}
               </div>
             </div>
           </div>
@@ -294,7 +321,25 @@ export default function OwnerDashboardPage() {
                           {review.user_name?.charAt(0)?.toUpperCase() || '?'}
                         </div>
                         <div>
-                          <p className="text-sm font-semibold text-black">{review.user_name}</p>
+                          <div className="flex items-center gap-1.5">
+                            <p className="text-sm font-semibold text-black">{review.user_name}</p>
+                            {review.verification_status === 'verified' && (
+                              <span
+                                className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded-full bg-emerald-50 text-emerald-700 text-[10px] font-bold"
+                                title="Reviewer confirmed their visit with a receipt"
+                              >
+                                <svg className="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
+                                  <path fillRule="evenodd" d="M10 1l2.4 1.9 3-.3 1 2.9 2.6 1.5-1 2.9 1 2.9-2.6 1.5-1 2.9-3-.3L10 19l-2.4-1.9-3 .3-1-2.9L1 13.2l1-2.9-1-2.9 2.6-1.5 1-2.9 3 .3L10 1zm-1.2 11.6l4.6-4.6-1.1-1.1-3.5 3.5-1.5-1.5-1.1 1.1 2.6 2.6z" clipRule="evenodd" />
+                                </svg>
+                                Verified
+                              </span>
+                            )}
+                            {review.verification_status === 'pending' && (
+                              <span className="inline-flex items-center px-1.5 py-0.5 rounded-full bg-amber-50 text-amber-700 text-[10px] font-bold">
+                                Pending
+                              </span>
+                            )}
+                          </div>
                           {businesses.length > 1 && review.business_name && (
                             <p className="text-xs text-gray-400">{review.business_name}</p>
                           )}

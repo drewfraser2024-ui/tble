@@ -33,7 +33,20 @@ export default function ReviewDisplay({ review, isOwner, isPremium, businessId }
               </span>
             </div>
             <div>
-              <p className="font-semibold text-sm text-black">{review.user_display_name}</p>
+              <div className="flex items-center gap-1.5">
+                <p className="font-semibold text-sm text-black">{review.user_display_name}</p>
+                {review.verification_status === 'verified' && (
+                  <span
+                    className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded-full bg-emerald-50 text-emerald-700 text-[10px] font-bold"
+                    title="This reviewer confirmed their visit with a receipt"
+                  >
+                    <svg className="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
+                      <path fillRule="evenodd" d="M10 1l2.4 1.9 3-.3 1 2.9 2.6 1.5-1 2.9 1 2.9-2.6 1.5-1 2.9-3-.3L10 19l-2.4-1.9-3 .3-1-2.9L1 13.2l1-2.9-1-2.9 2.6-1.5 1-2.9 3 .3L10 1zm-1.2 11.6l4.6-4.6-1.1-1.1-3.5 3.5-1.5-1.5-1.1 1.1 2.6 2.6z" clipRule="evenodd" />
+                    </svg>
+                    Verified Visit
+                  </span>
+                )}
+              </div>
               <p className="text-xs text-gray-400">{formatDate(review.created_at)}</p>
             </div>
           </div>

@@ -22,6 +22,8 @@ export interface Business {
   updated_at: string;
 }
 
+export type VerificationStatus = 'unverified' | 'pending' | 'verified';
+
 export interface Review {
   id: string;
   business_id: string;
@@ -29,12 +31,27 @@ export interface Review {
   user_display_name: string;
   overall_rating: number;
   review_text: string;
+  verification_status: VerificationStatus;
+  receipt_url: string | null;
+  receipt_total: number | null;
+  receipt_dated_on: string | null;
+  verification_confidence: number | null;
+  verified_at: string | null;
   created_at: string;
   updated_at: string;
   ratings?: ReviewRating[];
   images?: ReviewImage[];
   comments?: Comment[];
   owner_response?: OwnerResponse[];
+}
+
+export interface ReceiptScanResult {
+  status: VerificationStatus;
+  confidence: number; // 0-100
+  detectedTotal: number | null;
+  detectedDate: string | null; // ISO yyyy-mm-dd
+  matchedBusinessName: boolean;
+  checks: { label: string; passed: boolean }[];
 }
 
 export interface ReviewRating {
