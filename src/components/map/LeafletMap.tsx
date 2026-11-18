@@ -52,36 +52,38 @@ export default function LeafletMap({ businesses }: LeafletMapProps) {
   }, []);
 
   return (
-    <MapContainer
-      center={center}
-      zoom={12}
-      className="w-full h-full rounded-xl"
-      style={{ minHeight: '500px' }}
-    >
-      <RecenterMap center={center} />
-      <TileLayer
-        attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-        url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-      />
-      {businesses.map((biz) => (
-        <Marker key={biz.id} position={[biz.latitude, biz.longitude]}>
-          <Popup>
-            <div className="text-sm">
-              <p className="font-bold">{biz.name}</p>
-              <p className="text-gray-500 text-xs">{biz.address}</p>
-              <p className="text-xs mt-1">
-                Rating: {Number(biz.avg_overall_rating).toFixed(1)} / 5
-              </p>
-              <Link
-                href={`/${biz.category}/${biz.id}`}
-                className="text-xs text-turquoise-dark font-medium mt-1 inline-block"
-              >
-                View details →
-              </Link>
-            </div>
-          </Popup>
-        </Marker>
-      ))}
-    </MapContainer>
+    <div className="rounded-2xl overflow-hidden border border-[var(--hairline)]">
+      <MapContainer
+        center={center}
+        zoom={12}
+        className="w-full h-full rounded-xl"
+        style={{ minHeight: '500px' }}
+      >
+        <RecenterMap center={center} />
+        <TileLayer
+          attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+          url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+        />
+        {businesses.map((biz) => (
+          <Marker key={biz.id} position={[biz.latitude, biz.longitude]}>
+            <Popup>
+              <div className="text-sm min-w-[160px]">
+                <p className="font-bold text-ink-950">{biz.name}</p>
+                <p className="text-text-lo text-xs mt-0.5">{biz.address}</p>
+                <p className="text-xs mt-1 text-text-lo">
+                  Rating: <span className="font-semibold text-gold">{Number(biz.avg_overall_rating).toFixed(1)}</span> / 5
+                </p>
+                <Link
+                  href={`/${biz.category}/${biz.id}`}
+                  className="text-xs text-turquoise-dark font-semibold mt-1.5 inline-block"
+                >
+                  View details →
+                </Link>
+              </div>
+            </Popup>
+          </Marker>
+        ))}
+      </MapContainer>
+    </div>
   );
 }

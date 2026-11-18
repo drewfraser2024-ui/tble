@@ -23,21 +23,21 @@ export default function ReviewDisplay({ review, isOwner, isPremium, businessId }
   });
 
   return (
-    <div className="bg-white rounded-xl border border-gray-100 p-5 shadow-sm">
+    <div className="glass-card p-5">
       <div className="flex items-start justify-between mb-3">
         <div>
           <div className="flex items-center gap-2">
-            <div className="w-8 h-8 rounded-full bg-turquoise/10 flex items-center justify-center">
+            <div className="w-8 h-8 rounded-full bg-turquoise/15 flex items-center justify-center">
               <span className="text-turquoise font-bold text-sm">
                 {review.user_display_name.charAt(0).toUpperCase()}
               </span>
             </div>
             <div>
               <div className="flex items-center gap-1.5">
-                <p className="font-semibold text-sm text-black">{review.user_display_name}</p>
+                <p className="font-semibold text-sm text-white">{review.user_display_name}</p>
                 {review.verification_status === 'verified' && (
                   <span
-                    className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded-full bg-emerald-50 text-emerald-700 text-[10px] font-bold"
+                    className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded-full bg-turquoise/15 text-turquoise text-[10px] font-bold"
                     title="This reviewer confirmed their visit with a receipt"
                   >
                     <svg className="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
@@ -47,14 +47,14 @@ export default function ReviewDisplay({ review, isOwner, isPremium, businessId }
                   </span>
                 )}
               </div>
-              <p className="text-xs text-gray-400">{formatDate(review.created_at)}</p>
+              <p className="text-xs text-text-dim">{formatDate(review.created_at)}</p>
             </div>
           </div>
         </div>
         <StarRating value={review.overall_rating} size="sm" readOnly />
       </div>
 
-      <p className="text-sm text-gray-700 mb-4">{review.review_text}</p>
+      <p className="text-sm text-text-mid mb-4">{review.review_text}</p>
 
       {/* Compartment breakdown */}
       {Object.keys(compartmentRatings).length > 0 && (
@@ -62,11 +62,11 @@ export default function ReviewDisplay({ review, isOwner, isPremium, businessId }
           {Object.entries(compartmentRatings).map(([compartment, criteria]) => {
             const avg = criteria.reduce((sum, c) => sum + c.rating, 0) / criteria.length;
             return (
-              <div key={compartment} className="bg-gray-50 rounded-lg p-2 text-center">
-                <p className="text-xs text-gray-500 capitalize mb-1">
+              <div key={compartment} className="bg-white/5 border border-[var(--hairline)] rounded-lg p-2 text-center">
+                <p className="text-xs text-text-lo capitalize mb-1">
                   {compartment.replace(/_/g, ' ')}
                 </p>
-                <p className="text-sm font-bold text-black">{avg.toFixed(1)}</p>
+                <p className="text-sm font-bold text-white">{avg.toFixed(1)}</p>
               </div>
             );
           })}

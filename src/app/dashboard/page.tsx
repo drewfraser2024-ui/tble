@@ -138,7 +138,7 @@ export default function OwnerDashboardPage() {
   if (loading) {
     return (
       <div className="min-h-[60vh] flex items-center justify-center">
-        <div className="w-8 h-8 border-4 border-turquoise border-t-transparent rounded-full animate-spin" />
+        <div className="w-8 h-8 border-2 border-turquoise border-t-transparent rounded-full animate-spin" />
       </div>
     );
   }
@@ -162,7 +162,7 @@ export default function OwnerDashboardPage() {
         {[1, 2, 3, 4, 5].map((star) => (
           <svg
             key={star}
-            className={`w-4 h-4 ${star <= Math.round(rating) ? 'text-gold' : 'text-gray-200'}`}
+            className={`w-4 h-4 ${star <= Math.round(rating) ? 'text-gold' : 'text-ink-600'}`}
             fill="currentColor"
             viewBox="0 0 24 24"
           >
@@ -174,27 +174,27 @@ export default function OwnerDashboardPage() {
   }
 
   return (
-    <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+    <div className="max-w-2xl mx-auto px-5 py-6">
       {/* Welcome Header */}
-      <div className="mb-8">
+      <div className="mb-6">
         <div className="flex items-center gap-3 mb-1">
-          <div className="w-10 h-10 rounded-full bg-gold flex items-center justify-center text-white font-bold text-lg">
+          <div className="w-11 h-11 rounded-full bg-gold flex items-center justify-center text-[#04110F] font-bold text-lg">
             {displayName.charAt(0).toUpperCase()}
           </div>
-          <div>
-            <h1 className="text-2xl font-bold text-black">
+          <div className="min-w-0">
+            <h1 className="text-xl font-bold text-white truncate">
               Welcome back, {displayName}
             </h1>
             {businessName && (
-              <p className="text-gray-500 text-sm">{businessName}</p>
+              <p className="text-text-lo text-sm truncate">{businessName}</p>
             )}
           </div>
         </div>
       </div>
 
       {/* Tab Navigation */}
-      <div className="mb-8 border-b border-gray-200">
-        <nav className="flex gap-1 -mb-px overflow-x-auto">
+      <div className="mb-6 border-b border-[var(--hairline)]">
+        <nav className="flex gap-1 -mb-px overflow-x-auto no-scrollbar">
           {TABS.map((tab) => (
             <button
               key={tab.id}
@@ -203,8 +203,8 @@ export default function OwnerDashboardPage() {
                 flex items-center gap-2 px-4 py-3 text-sm font-medium whitespace-nowrap
                 border-b-2 transition-all duration-200
                 ${activeTab === tab.id
-                  ? 'border-turquoise text-turquoise-dark'
-                  : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
+                  ? 'border-turquoise text-turquoise'
+                  : 'border-transparent text-text-lo hover:text-text-mid hover:border-[var(--hairline-strong)]'
                 }
               `}
             >
@@ -219,35 +219,35 @@ export default function OwnerDashboardPage() {
       {activeTab === 'overview' && (
         <div>
           {/* Stats Cards */}
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-5 mb-10">
-            <div className="bg-white rounded-xl border border-gray-100 shadow-sm p-6">
-              <p className="text-sm text-gray-500 mb-1">Your Businesses</p>
-              <p className="text-3xl font-bold text-black">{businesses.length}</p>
+          <div className="grid grid-cols-2 gap-3 mb-8">
+            <div className="glass-card p-4">
+              <p className="text-sm text-text-lo mb-1">Your Businesses</p>
+              <p className="text-2xl font-bold text-white">{businesses.length}</p>
             </div>
-            <div className="bg-white rounded-xl border border-gray-100 shadow-sm p-6">
-              <p className="text-sm text-gray-500 mb-1">Total Reviews</p>
-              <p className="text-3xl font-bold text-black">{totalReviews}</p>
+            <div className="glass-card p-4">
+              <p className="text-sm text-text-lo mb-1">Total Reviews</p>
+              <p className="text-2xl font-bold text-white">{totalReviews}</p>
             </div>
-            <div className="bg-white rounded-xl border border-gray-100 shadow-sm p-6">
-              <p className="text-sm text-gray-500 mb-1">Average Rating</p>
+            <div className="glass-card p-4">
+              <p className="text-sm text-text-lo mb-1">Average Rating</p>
               <div className="flex items-center gap-2">
-                <p className="text-3xl font-bold text-black">
+                <p className="text-2xl font-bold text-white">
                   {avgRating > 0 ? avgRating.toFixed(1) : '\u2014'}
                 </p>
                 {avgRating > 0 && renderStars(avgRating)}
               </div>
             </div>
-            <div className="bg-white rounded-xl border border-gray-100 shadow-sm p-6">
-              <p className="text-sm text-gray-500 mb-1 flex items-center gap-1">
-                <svg className="w-3.5 h-3.5 text-emerald-500" fill="currentColor" viewBox="0 0 20 20">
+            <div className="glass-card p-4">
+              <p className="text-sm text-text-lo mb-1 flex items-center gap-1">
+                <svg className="w-3.5 h-3.5 text-turquoise" fill="currentColor" viewBox="0 0 20 20">
                   <path fillRule="evenodd" d="M10 1l2.4 1.9 3-.3 1 2.9 2.6 1.5-1 2.9 1 2.9-2.6 1.5-1 2.9-3-.3L10 19l-2.4-1.9-3 .3-1-2.9L1 13.2l1-2.9-1-2.9 2.6-1.5 1-2.9 3 .3L10 1zm-1.2 11.6l4.6-4.6-1.1-1.1-3.5 3.5-1.5-1.5-1.1 1.1 2.6 2.6z" clipRule="evenodd" />
                 </svg>
                 Verified Visits
               </p>
               <div className="flex items-baseline gap-2">
-                <p className="text-3xl font-bold text-emerald-600">{verifiedCount}</p>
+                <p className="text-2xl font-bold text-turquoise">{verifiedCount}</p>
                 {totalReviews > 0 && (
-                  <span className="text-sm text-gray-400">
+                  <span className="text-sm text-text-dim">
                     {Math.round((verifiedCount / totalReviews) * 100)}%
                   </span>
                 )}
@@ -256,43 +256,43 @@ export default function OwnerDashboardPage() {
           </div>
 
           {/* Your Businesses */}
-          <section className="mb-10">
-            <h2 className="text-lg font-bold text-black mb-4">Your Businesses</h2>
+          <section className="mb-8">
+            <h2 className="text-lg font-bold text-white mb-4">Your Businesses</h2>
             {businesses.length === 0 ? (
-              <div className="bg-white rounded-xl border border-gray-100 shadow-sm p-8 text-center">
-                <p className="text-gray-500 mb-2">No businesses linked to your account yet.</p>
-                <p className="text-gray-400 text-sm">
+              <div className="glass-card p-8 text-center">
+                <p className="text-text-mid mb-2">No businesses linked to your account yet.</p>
+                <p className="text-text-lo text-sm">
                   Contact us to get your business listed and linked to your owner account.
                 </p>
               </div>
             ) : (
-              <div className="grid gap-4">
+              <div className="grid gap-3">
                 {businesses.map((biz) => (
                   <Link
                     key={biz.id}
                     href={`/${getCategoryPath(biz.category)}/${biz.id}`}
-                    className="bg-white rounded-xl border border-gray-100 shadow-sm p-6 hover:shadow-md transition-shadow flex items-center justify-between"
+                    className="glass-card glass-card-hover p-5 flex items-center justify-between"
                   >
                     <div>
                       <div className="flex items-center gap-2 mb-1">
-                        <h3 className="font-bold text-black">{biz.name}</h3>
+                        <h3 className="font-bold text-white">{biz.name}</h3>
                         {biz.is_premium && (
-                          <span className="text-xs px-2 py-0.5 bg-gold/10 text-gold rounded-full font-medium">
+                          <span className="text-xs px-2 py-0.5 bg-gold/15 text-gold rounded-full font-semibold">
                             Premium
                           </span>
                         )}
                       </div>
-                      <p className="text-sm text-gray-500">
+                      <p className="text-sm text-text-lo">
                         {biz.address}, {biz.city}, {biz.state}
                       </p>
                       <div className="flex items-center gap-3 mt-2">
                         {renderStars(biz.overall_rating || 0)}
-                        <span className="text-sm text-gray-400">
+                        <span className="text-sm text-text-dim">
                           {biz.review_count || 0} review{biz.review_count !== 1 ? 's' : ''}
                         </span>
                       </div>
                     </div>
-                    <svg className="w-5 h-5 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <svg className="w-5 h-5 text-text-dim shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                     </svg>
                   </Link>
@@ -303,29 +303,29 @@ export default function OwnerDashboardPage() {
 
           {/* Recent Reviews */}
           <section>
-            <h2 className="text-lg font-bold text-black mb-4">Recent Reviews</h2>
+            <h2 className="text-lg font-bold text-white mb-4">Recent Reviews</h2>
             {recentReviews.length === 0 ? (
-              <div className="bg-white rounded-xl border border-gray-100 shadow-sm p-8 text-center">
-                <p className="text-gray-500">No reviews yet. Share your business page to start getting reviews!</p>
+              <div className="glass-card p-8 text-center">
+                <p className="text-text-lo">No reviews yet. Share your business page to start getting reviews!</p>
               </div>
             ) : (
-              <div className="space-y-4">
+              <div className="space-y-3">
                 {recentReviews.map((review) => (
                   <div
                     key={review.id}
-                    className="bg-white rounded-xl border border-gray-100 shadow-sm p-6"
+                    className="glass-card p-5"
                   >
                     <div className="flex items-center justify-between mb-2">
                       <div className="flex items-center gap-2">
-                        <div className="w-8 h-8 rounded-full bg-turquoise/10 flex items-center justify-center text-turquoise font-bold text-sm">
+                        <div className="w-8 h-8 rounded-full bg-turquoise/15 flex items-center justify-center text-turquoise font-bold text-sm">
                           {review.user_name?.charAt(0)?.toUpperCase() || '?'}
                         </div>
                         <div>
                           <div className="flex items-center gap-1.5">
-                            <p className="text-sm font-semibold text-black">{review.user_name}</p>
+                            <p className="text-sm font-semibold text-white">{review.user_name}</p>
                             {review.verification_status === 'verified' && (
                               <span
-                                className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded-full bg-emerald-50 text-emerald-700 text-[10px] font-bold"
+                                className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded-full bg-turquoise/15 text-turquoise text-[10px] font-bold"
                                 title="Reviewer confirmed their visit with a receipt"
                               >
                                 <svg className="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
@@ -335,27 +335,27 @@ export default function OwnerDashboardPage() {
                               </span>
                             )}
                             {review.verification_status === 'pending' && (
-                              <span className="inline-flex items-center px-1.5 py-0.5 rounded-full bg-amber-50 text-amber-700 text-[10px] font-bold">
+                              <span className="inline-flex items-center px-1.5 py-0.5 rounded-full bg-gold/15 text-gold text-[10px] font-bold">
                                 Pending
                               </span>
                             )}
                           </div>
                           {businesses.length > 1 && review.business_name && (
-                            <p className="text-xs text-gray-400">{review.business_name}</p>
+                            <p className="text-xs text-text-dim">{review.business_name}</p>
                           )}
                         </div>
                       </div>
                       <div className="flex items-center gap-2">
                         {renderStars(review.overall_rating)}
-                        <span className="text-xs text-gray-400">
+                        <span className="text-xs text-text-dim">
                           {new Date(review.created_at).toLocaleDateString()}
                         </span>
                       </div>
                     </div>
-                    <p className="text-sm text-gray-600 line-clamp-3">{review.review_text}</p>
+                    <p className="text-sm text-text-mid line-clamp-3">{review.review_text}</p>
                     <Link
                       href={`/${getCategoryPath(businesses.find((b) => b.id === review.business_id)?.category || 'business')}/${review.business_id}`}
-                      className="inline-block mt-3 text-xs text-turquoise-dark font-medium hover:underline"
+                      className="inline-block mt-3 text-xs text-turquoise font-semibold hover:underline"
                     >
                       View & Respond
                     </Link>

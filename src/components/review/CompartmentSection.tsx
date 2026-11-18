@@ -19,15 +19,15 @@ export default function CompartmentSection({
   errors,
 }: CompartmentSectionProps) {
   return (
-    <div className="bg-white rounded-xl border border-gray-100 p-5 shadow-sm">
-      <h3 className="text-lg font-bold text-black mb-4 flex items-center gap-2">
+    <div className="glass-card p-5">
+      <h3 className="text-lg font-bold text-white mb-4 flex items-center gap-2">
         <div className="w-1 h-5 rounded-full bg-turquoise" />
         {title}
       </h3>
       <div className="space-y-3">
         {criteria.map((criterion) => (
           <div key={criterion.key} className="flex items-center justify-between">
-            <label className="text-sm text-gray-600">{criterion.label}</label>
+            <label className="text-sm text-text-mid">{criterion.label}</label>
             <div className="flex items-center gap-2">
               <StarRating
                 value={ratings[criterion.key] || 0}

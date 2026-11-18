@@ -3,7 +3,6 @@
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
-import Image from 'next/image';
 import { createClient } from '@/lib/supabase/client';
 
 export default function OwnerSignInPage() {
@@ -35,73 +34,74 @@ export default function OwnerSignInPage() {
   }
 
   return (
-    <div className="min-h-[calc(100vh-8rem)] flex items-center justify-center px-4">
-      <div className="w-full max-w-md">
-        <div className="text-center mb-8">
-          <Image src="/logo.svg" alt="Tble" width={100} height={100} className="mx-auto mb-2" />
-          <h1 className="text-2xl font-bold text-black">Owner Sign In</h1>
-          <p className="text-gray-500 text-sm mt-1">Manage your business on Tble</p>
+    <div className="max-w-md mx-auto px-5 py-12">
+      <div className="text-center mb-8">
+        <div className="app-badge w-16 h-16 rounded-2xl mx-auto mb-5">
+          <span className="font-serif font-bold italic text-3xl text-[#06201C]">T</span>
         </div>
+        <p className="text-gold text-xs font-semibold uppercase tracking-wide mb-1">Business Owner</p>
+        <h1 className="text-2xl font-bold text-white">Owner Sign In</h1>
+        <p className="text-text-lo text-sm mt-1.5">Manage your business on Tble It</p>
+      </div>
 
-        <div className="bg-white rounded-2xl border border-gold/30 p-8 shadow-sm">
-          <form onSubmit={handleSubmit} className="space-y-4">
-            <div>
-              <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">
-                Email
-              </label>
-              <input
-                id="email"
-                type="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                required
-                placeholder="you@example.com"
-                className="w-full px-4 py-2.5 rounded-xl border border-gray-200 text-sm focus:outline-none focus:border-gold focus:ring-2 focus:ring-gold-light"
-              />
-            </div>
-
-            <div>
-              <label htmlFor="password" className="block text-sm font-medium text-gray-700 mb-1">
-                Password
-              </label>
-              <input
-                id="password"
-                type="password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                required
-                placeholder="Your password"
-                className="w-full px-4 py-2.5 rounded-xl border border-gray-200 text-sm focus:outline-none focus:border-gold focus:ring-2 focus:ring-gold-light"
-              />
-            </div>
-
-            {error && (
-              <p className="text-pink text-sm text-center">{error}</p>
-            )}
-
-            <button
-              type="submit"
-              disabled={loading}
-              className="w-full py-2.5 bg-gold hover:bg-yellow-600 text-white font-semibold rounded-xl transition-colors disabled:opacity-50 shadow-sm"
-            >
-              {loading ? 'Signing in...' : 'Sign In as Owner'}
-            </button>
-          </form>
-
-          <div className="mt-6 text-center space-y-2">
-            <p className="text-sm text-gray-500">
-              Don&apos;t have an owner account?{' '}
-              <Link href="/auth/owner/signup" className="text-gold font-medium hover:underline">
-                Register your business
-              </Link>
-            </p>
-            <p className="text-sm text-gray-400">
-              Not an owner?{' '}
-              <Link href="/auth/signin" className="text-turquoise-dark font-medium hover:underline">
-                User sign in
-              </Link>
-            </p>
+      <div className="glass-card p-8 border-gold/30">
+        <form onSubmit={handleSubmit} className="space-y-5">
+          <div>
+            <label htmlFor="email" className="block text-sm font-medium text-text-mid mb-1.5">
+              Email
+            </label>
+            <input
+              id="email"
+              type="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
+              placeholder="you@example.com"
+              className="field"
+            />
           </div>
+
+          <div>
+            <label htmlFor="password" className="block text-sm font-medium text-text-mid mb-1.5">
+              Password
+            </label>
+            <input
+              id="password"
+              type="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+              placeholder="Your password"
+              className="field"
+            />
+          </div>
+
+          {error && (
+            <p className="text-pink text-sm text-center">{error}</p>
+          )}
+
+          <button
+            type="submit"
+            disabled={loading}
+            className="btn-primary w-full py-3.5"
+          >
+            {loading ? 'Signing in...' : 'Sign In as Owner'}
+          </button>
+        </form>
+
+        <div className="mt-6 text-center space-y-2">
+          <p className="text-sm text-text-lo">
+            Don&apos;t have an owner account?{' '}
+            <Link href="/auth/owner/signup" className="text-gold font-semibold hover:underline">
+              Register your business
+            </Link>
+          </p>
+          <p className="text-sm text-text-dim">
+            Not an owner?{' '}
+            <Link href="/auth/signin" className="text-turquoise font-semibold hover:underline">
+              User sign in
+            </Link>
+          </p>
         </div>
       </div>
     </div>

@@ -17,8 +17,8 @@ export default async function RestaurantListPage() {
   return (
     <div>
       <div className="mb-8">
-        <h1 className="text-3xl font-bold text-black">Restaurants, Chefs & Bakers</h1>
-        <p className="text-gray-500 mt-1">Browse and review your favorite dining experiences</p>
+        <h1 className="text-3xl font-bold text-white">Restaurants, Chefs & Bakers</h1>
+        <p className="text-text-lo mt-1">Browse and review your favorite dining experiences</p>
       </div>
 
       {(!businesses || businesses.length === 0) ? (
@@ -29,8 +29,8 @@ export default async function RestaurantListPage() {
               <circle cx="12" cy="12" r="10" strokeWidth={1.5} />
             </svg>
           </div>
-          <h2 className="text-lg font-semibold text-black mb-1">No restaurants yet</h2>
-          <p className="text-gray-400 text-sm">Check back soon for new listings!</p>
+          <h2 className="text-lg font-semibold text-white mb-1">No restaurants yet</h2>
+          <p className="text-text-lo text-sm">Check back soon for new listings!</p>
         </div>
       ) : (
         <div className="grid sm:grid-cols-2 gap-4">
@@ -38,7 +38,7 @@ export default async function RestaurantListPage() {
             <Link
               key={biz.id}
               href={`/restaurant/${biz.id}`}
-              className="bg-white rounded-xl border border-gray-100 p-5 shadow-sm hover:shadow-md transition-shadow group"
+              className="glass-card glass-card-hover p-5 group"
             >
               {biz.cover_image_url && (
                 <img
@@ -47,13 +47,13 @@ export default async function RestaurantListPage() {
                   className="w-full h-32 object-cover rounded-lg mb-3"
                 />
               )}
-              <h3 className="font-bold text-black group-hover:text-turquoise-dark transition-colors">
+              <h3 className="font-bold text-white group-hover:text-turquoise transition-colors">
                 {biz.name}
               </h3>
-              <p className="text-sm text-gray-400 mt-1">{biz.address}, {biz.city}</p>
+              <p className="text-sm text-text-lo mt-1">{biz.address}, {biz.city}</p>
               <div className="flex items-center gap-2 mt-2">
                 <StarRating value={Math.round(biz.avg_overall_rating)} size="sm" readOnly />
-                <span className="text-xs text-gray-400">
+                <span className="text-xs text-text-dim">
                   ({biz.review_count} {biz.review_count === 1 ? 'review' : 'reviews'})
                 </span>
               </div>

@@ -39,26 +39,26 @@ const RESULT_CONFIG: Record<VerificationResult, {
   verified: {
     label: 'Verified Review',
     icon: 'shield-check',
-    bg: 'bg-emerald-50',
-    text: 'text-emerald-700',
-    border: 'border-emerald-200',
-    dot: 'bg-emerald-400',
+    bg: 'bg-turquoise/15',
+    text: 'text-turquoise',
+    border: 'border-turquoise/30',
+    dot: 'bg-turquoise',
   },
   suspicious: {
     label: 'Suspicious Review',
     icon: 'exclamation',
-    bg: 'bg-red-50',
-    text: 'text-red-700',
-    border: 'border-red-200',
-    dot: 'bg-red-400',
+    bg: 'bg-pink/15',
+    text: 'text-pink',
+    border: 'border-pink/30',
+    dot: 'bg-pink',
   },
   inconclusive: {
     label: 'Inconclusive',
     icon: 'question',
-    bg: 'bg-amber-50',
-    text: 'text-amber-700',
-    border: 'border-amber-200',
-    dot: 'bg-amber-400',
+    bg: 'bg-gold/15',
+    text: 'text-gold',
+    border: 'border-gold/30',
+    dot: 'bg-gold',
   },
 };
 
@@ -152,7 +152,7 @@ export default function AIReviewVerification({ reviews }: { reviews: Review[] })
         {[1, 2, 3, 4, 5].map((star) => (
           <svg
             key={star}
-            className={`w-3.5 h-3.5 ${star <= Math.round(rating) ? 'text-gold' : 'text-gray-200'}`}
+            className={`w-3.5 h-3.5 ${star <= Math.round(rating) ? 'text-gold' : 'text-ink-600'}`}
             fill="currentColor"
             viewBox="0 0 24 24"
           >
@@ -171,13 +171,13 @@ export default function AIReviewVerification({ reviews }: { reviews: Review[] })
     <section>
       <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-6">
         <div>
-          <h2 className="text-xl font-bold text-black flex items-center gap-2">
+          <h2 className="text-xl font-bold text-white flex items-center gap-2">
             <svg className="w-5 h-5 text-turquoise" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
             </svg>
             AI Review Verification
           </h2>
-          <p className="text-gray-500 text-sm mt-1">
+          <p className="text-text-lo text-sm mt-1">
             AI-powered analysis to detect fake or suspicious reviews.
           </p>
         </div>
@@ -185,11 +185,11 @@ export default function AIReviewVerification({ reviews }: { reviews: Review[] })
         <button
           onClick={runBatchAnalysis}
           disabled={analyzing || reviews.length === 0}
-          className="inline-flex items-center gap-2 px-5 py-2.5 bg-turquoise hover:bg-turquoise-dark text-white font-semibold rounded-xl text-sm transition-colors disabled:opacity-50 shadow-sm hover:shadow-md active:scale-[0.98]"
+          className="btn-primary px-5 py-2.5 text-sm"
         >
           {analyzing ? (
             <>
-              <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
+              <div className="w-4 h-4 border-2 border-[#04110F] border-t-transparent rounded-full animate-spin" />
               Analyzing...
             </>
           ) : (
@@ -205,41 +205,41 @@ export default function AIReviewVerification({ reviews }: { reviews: Review[] })
 
       {/* Summary stats */}
       {verifiedReviews.length > 0 && (
-        <div className="grid grid-cols-3 gap-4 mb-6">
-          <div className="bg-emerald-50 rounded-xl p-4 border border-emerald-100">
+        <div className="grid grid-cols-3 gap-3 mb-6">
+          <div className="glass-card p-4">
             <div className="flex items-center gap-2 mb-1">
-              <div className="w-2.5 h-2.5 rounded-full bg-emerald-400" />
-              <span className="text-xs font-medium text-emerald-700">Verified</span>
+              <div className="w-2.5 h-2.5 rounded-full bg-turquoise" />
+              <span className="text-xs font-medium text-text-lo">Verified</span>
             </div>
-            <p className="text-2xl font-bold text-emerald-800">{verifiedCount}</p>
+            <p className="text-2xl font-bold text-turquoise">{verifiedCount}</p>
           </div>
-          <div className="bg-amber-50 rounded-xl p-4 border border-amber-100">
+          <div className="glass-card p-4">
             <div className="flex items-center gap-2 mb-1">
-              <div className="w-2.5 h-2.5 rounded-full bg-amber-400" />
-              <span className="text-xs font-medium text-amber-700">Inconclusive</span>
+              <div className="w-2.5 h-2.5 rounded-full bg-gold" />
+              <span className="text-xs font-medium text-text-lo">Inconclusive</span>
             </div>
-            <p className="text-2xl font-bold text-amber-800">{inconclusiveCount}</p>
+            <p className="text-2xl font-bold text-gold">{inconclusiveCount}</p>
           </div>
-          <div className="bg-red-50 rounded-xl p-4 border border-red-100">
+          <div className="glass-card p-4">
             <div className="flex items-center gap-2 mb-1">
-              <div className="w-2.5 h-2.5 rounded-full bg-red-400" />
-              <span className="text-xs font-medium text-red-700">Suspicious</span>
+              <div className="w-2.5 h-2.5 rounded-full bg-pink" />
+              <span className="text-xs font-medium text-text-lo">Suspicious</span>
             </div>
-            <p className="text-2xl font-bold text-red-800">{suspiciousCount}</p>
+            <p className="text-2xl font-bold text-pink">{suspiciousCount}</p>
           </div>
         </div>
       )}
 
       {/* Results list */}
       {verifiedReviews.length === 0 ? (
-        <div className="bg-white rounded-xl border border-gray-100 shadow-sm p-8 text-center">
-          <div className="w-14 h-14 rounded-full bg-turquoise/10 flex items-center justify-center mx-auto mb-4">
+        <div className="glass-card p-8 text-center">
+          <div className="w-14 h-14 rounded-full bg-turquoise/15 flex items-center justify-center mx-auto mb-4">
             <svg className="w-7 h-7 text-turquoise" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
             </svg>
           </div>
-          <p className="text-gray-600 font-medium mb-1">AI-Powered Review Scanner</p>
-          <p className="text-gray-400 text-sm">
+          <p className="text-white font-medium mb-1">AI-Powered Review Scanner</p>
+          <p className="text-text-lo text-sm">
             {reviews.length > 0
               ? `Click "Scan All Reviews" to analyze ${reviews.length} review${reviews.length !== 1 ? 's' : ''} for authenticity.`
               : 'No reviews to analyze yet.'}
@@ -252,28 +252,28 @@ export default function AIReviewVerification({ reviews }: { reviews: Review[] })
             return (
               <div
                 key={vr.reviewId}
-                className={`bg-white rounded-xl border shadow-sm p-5 hover:shadow-md transition-all ${cfg.border}`}
+                className={`glass-card p-5 transition-all ${cfg.border}`}
               >
                 <div className="flex items-start justify-between gap-4">
                   <div className="flex-1 min-w-0">
                     <div className="flex flex-wrap items-center gap-2 mb-2">
-                      <span className="text-sm font-semibold text-black">{vr.reviewerName}</span>
+                      <span className="text-sm font-semibold text-white">{vr.reviewerName}</span>
                       {renderStars(vr.rating)}
                       <span className={`inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-bold ${cfg.bg} ${cfg.text}`}>
                         <span className={`w-1.5 h-1.5 rounded-full ${cfg.dot}`} />
                         {cfg.label}
                       </span>
                     </div>
-                    <p className="text-sm text-gray-500 line-clamp-2 mb-2">&ldquo;{vr.reviewText}&rdquo;</p>
+                    <p className="text-sm text-text-lo line-clamp-2 mb-2">&ldquo;{vr.reviewText}&rdquo;</p>
 
                     {/* AI reasons */}
                     <div className="flex flex-wrap gap-1.5">
                       {vr.reasons.map((reason, i) => (
                         <span
                           key={i}
-                          className="inline-flex items-center gap-1 px-2 py-0.5 rounded-md bg-gray-50 border border-gray-100 text-xs text-gray-500"
+                          className="inline-flex items-center gap-1 px-2 py-0.5 rounded-md bg-white/5 border border-[var(--hairline)] text-xs text-text-lo"
                         >
-                          <svg className="w-3 h-3 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <svg className="w-3 h-3 text-text-dim" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                           </svg>
                           {reason}
@@ -286,23 +286,23 @@ export default function AIReviewVerification({ reviews }: { reviews: Review[] })
                   <div className="text-center shrink-0">
                     <div className="relative w-14 h-14">
                       <svg className="w-14 h-14 -rotate-90" viewBox="0 0 56 56">
-                        <circle cx="28" cy="28" r="24" fill="none" stroke="#f3f4f6" strokeWidth="4" />
+                        <circle cx="28" cy="28" r="24" fill="none" stroke="#272E3A" strokeWidth="4" />
                         <circle
                           cx="28"
                           cy="28"
                           r="24"
                           fill="none"
-                          stroke={vr.result === 'verified' ? '#10b981' : vr.result === 'suspicious' ? '#ef4444' : '#f59e0b'}
+                          stroke={vr.result === 'verified' ? '#2DD4BF' : vr.result === 'suspicious' ? '#F472B6' : '#F59E0B'}
                           strokeWidth="4"
                           strokeLinecap="round"
                           strokeDasharray={`${(vr.confidence / 100) * 150.8} 150.8`}
                         />
                       </svg>
-                      <span className="absolute inset-0 flex items-center justify-center text-xs font-bold text-gray-700">
+                      <span className="absolute inset-0 flex items-center justify-center text-xs font-bold text-white">
                         {vr.confidence}%
                       </span>
                     </div>
-                    <p className="text-[10px] text-gray-400 mt-1">Confidence</p>
+                    <p className="text-[10px] text-text-dim mt-1">Confidence</p>
                   </div>
                 </div>
               </div>

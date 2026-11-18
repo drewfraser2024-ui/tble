@@ -25,7 +25,7 @@ export default function StarRating({ value, onChange, size = 'md', readOnly = fa
         return readOnly ? (
           <svg
             key={star}
-            className={`${sizes[size]} ${filled ? 'text-gold' : 'text-gray-200'}`}
+            className={`${sizes[size]} ${filled ? 'text-gold' : 'text-white/15'}`}
             fill="currentColor"
             viewBox="0 0 24 24"
           >
@@ -41,7 +41,7 @@ export default function StarRating({ value, onChange, size = 'md', readOnly = fa
             className="focus:outline-none"
           >
             <svg
-              className={`${sizes[size]} ${filled ? 'text-gold' : 'text-gray-200'} transition-colors`}
+              className={`${sizes[size]} ${filled ? 'text-gold' : 'text-white/15'} transition-colors`}
               fill="currentColor"
               viewBox="0 0 24 24"
             >

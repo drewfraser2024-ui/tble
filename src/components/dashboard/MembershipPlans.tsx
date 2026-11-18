@@ -8,25 +8,57 @@ import { useState } from 'react';
 
 const PLANS = [
   {
+    id: 'free',
+    name: 'Starter',
+    price: 0,
+    period: '',
+    badge: null,
+    cta: 'Current Plan',
+    description: 'Get listed and start collecting verified reviews — free forever.',
+    color: {
+      bg: '',
+      border: 'border-[var(--hairline)]',
+      borderHover: 'hover:border-[var(--hairline-strong)]',
+      shadow: '',
+      badge: '',
+      badgeBg: '',
+      icon: 'text-text-mid',
+      iconBg: 'bg-white/10',
+      button: 'bg-white/10 hover:bg-white/15',
+      buttonText: 'text-white',
+      buttonRing: 'focus:ring-white/20',
+      accent: 'text-white',
+      headerGradient: 'from-white to-gray-400',
+    },
+    features: [
+      { icon: 'placement', label: 'List your business on Tble It' },
+      { icon: 'verify', label: 'Collect receipt-verified reviews' },
+      { icon: 'target', label: 'Appear in search & map results' },
+      { icon: 'check', label: 'Basic business profile' },
+    ],
+  },
+  {
     id: 'premium',
     name: 'Premium',
     price: 29,
     period: '/mo',
     badge: null,
+    cta: 'Upgrade to Premium',
     description: 'Boost your visibility and unlock smart insights.',
     color: {
-      bg: 'bg-blue-50',
-      border: 'border-blue-200',
-      borderHover: 'hover:border-blue-400',
-      shadow: 'hover:shadow-blue-100',
+      bg: '',
+      border: 'border-[var(--hairline)]',
+      borderHover: 'hover:border-turquoise/40',
+      shadow: '',
       badge: '',
       badgeBg: '',
-      icon: 'text-blue-500',
-      iconBg: 'bg-blue-100',
-      button: 'bg-blue-600 hover:bg-blue-700',
-      buttonRing: 'focus:ring-blue-300',
-      accent: 'text-blue-600',
-      headerGradient: 'from-blue-600 to-blue-500',
+      icon: 'text-turquoise',
+      iconBg: 'bg-turquoise/15',
+      button: 'bg-turquoise hover:bg-turquoise-light',
+      buttonText: 'text-[#04110F]',
+      buttonRing: 'focus:ring-turquoise/30',
+      accent: 'text-turquoise',
+      headerGradient: 'from-turquoise to-turquoise-dark',
     },
     features: [
       { icon: 'placement', label: 'Front page placement for your listing' },
@@ -41,20 +73,22 @@ const PLANS = [
     price: 59,
     period: '/mo',
     badge: 'Most Popular',
+    cta: 'Upgrade to Gold',
     description: 'Everything in Premium plus promotions & targeting.',
     color: {
-      bg: 'bg-amber-50',
-      border: 'border-amber-200',
-      borderHover: 'hover:border-amber-400',
-      shadow: 'hover:shadow-amber-100',
-      badge: 'text-amber-700',
-      badgeBg: 'bg-amber-100',
-      icon: 'text-amber-500',
-      iconBg: 'bg-amber-100',
-      button: 'bg-amber-500 hover:bg-amber-600',
-      buttonRing: 'focus:ring-amber-300',
-      accent: 'text-amber-600',
-      headerGradient: 'from-amber-500 to-yellow-500',
+      bg: '',
+      border: 'border-turquoise',
+      borderHover: 'hover:border-turquoise',
+      shadow: '',
+      badge: 'text-[#04110F]',
+      badgeBg: 'bg-turquoise',
+      icon: 'text-gold',
+      iconBg: 'bg-gold/15',
+      button: 'bg-gold hover:bg-gold-light',
+      buttonText: 'text-[#2A1A00]',
+      buttonRing: 'focus:ring-gold/30',
+      accent: 'text-gold',
+      headerGradient: 'from-gold to-gold-light',
     },
     features: [
       { icon: 'check', label: 'All Premium features included' },
@@ -71,19 +105,21 @@ const PLANS = [
     price: 99,
     period: '/mo',
     badge: 'Best Value',
+    cta: 'Upgrade to Platinum',
     description: 'The ultimate toolkit for serious business growth.',
     color: {
-      bg: 'bg-violet/5',
-      border: 'border-violet/20',
-      borderHover: 'hover:border-violet/50',
-      shadow: 'hover:shadow-violet-light/30',
-      badge: 'text-violet-dark',
-      badgeBg: 'bg-violet-light/30',
+      bg: '',
+      border: 'border-violet/30',
+      borderHover: 'hover:border-violet/60',
+      shadow: '',
+      badge: 'text-violet-light',
+      badgeBg: 'bg-violet/20',
       icon: 'text-violet',
-      iconBg: 'bg-violet-light/30',
+      iconBg: 'bg-violet/15',
       button: 'bg-gradient-to-r from-violet-dark to-violet hover:from-violet hover:to-violet-dark',
-      buttonRing: 'focus:ring-violet-light',
-      accent: 'text-violet-dark',
+      buttonText: 'text-white',
+      buttonRing: 'focus:ring-violet/40',
+      accent: 'text-violet-light',
       headerGradient: 'from-violet-dark to-violet',
     },
     features: [
@@ -204,18 +240,18 @@ export default function MembershipPlans() {
     <section>
       <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-8">
         <div>
-          <h2 className="text-xl font-bold text-black">Upgrade Your Membership</h2>
-          <p className="text-gray-500 text-sm mt-1">
+          <h2 className="text-xl font-bold text-white">Upgrade Your Membership</h2>
+          <p className="text-text-lo text-sm mt-1">
             Unlock powerful tools to grow your business on Tble.
           </p>
         </div>
 
         {/* Billing toggle */}
-        <div className="flex items-center gap-3 bg-gray-100 rounded-full p-1">
+        <div className="flex items-center gap-1 bg-white/5 border border-[var(--hairline)] rounded-full p-1">
           <button
             onClick={() => setAnnual(false)}
             className={`px-4 py-1.5 rounded-full text-sm font-medium transition-all ${
-              !annual ? 'bg-white text-black shadow-sm' : 'text-gray-500 hover:text-gray-700'
+              !annual ? 'bg-white/10 text-white' : 'text-text-lo hover:text-text-mid'
             }`}
           >
             Monthly
@@ -223,16 +259,16 @@ export default function MembershipPlans() {
           <button
             onClick={() => setAnnual(true)}
             className={`px-4 py-1.5 rounded-full text-sm font-medium transition-all ${
-              annual ? 'bg-white text-black shadow-sm' : 'text-gray-500 hover:text-gray-700'
+              annual ? 'bg-white/10 text-white' : 'text-text-lo hover:text-text-mid'
             }`}
           >
             Annual
-            <span className="ml-1.5 text-xs text-emerald-600 font-semibold">Save 20%</span>
+            <span className="ml-1.5 text-xs text-turquoise font-semibold">Save 20%</span>
           </button>
         </div>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 gap-5">
         {PLANS.map((plan) => {
           const price = annual ? Math.round(plan.price * 0.8) : plan.price;
           const c = plan.color;
@@ -241,16 +277,15 @@ export default function MembershipPlans() {
             <div
               key={plan.id}
               className={`
-                relative rounded-2xl border-2 ${c.border} ${c.borderHover} ${c.bg}
-                p-[2px] transition-all duration-300 ${c.shadow}
-                hover:shadow-xl hover:-translate-y-1 group
+                glass-card glass-card-hover relative border ${c.border} ${c.borderHover}
+                transition-all duration-300
               `}
             >
               {/* Badge */}
               {plan.badge && (
                 <div className="absolute -top-3.5 left-1/2 -translate-x-1/2 z-10">
                   <span
-                    className={`inline-flex items-center gap-1 px-3.5 py-1 rounded-full text-xs font-bold ${c.badgeBg} ${c.badge} shadow-sm`}
+                    className={`inline-flex items-center gap-1 px-3.5 py-1 rounded-full text-xs font-bold ${c.badgeBg} ${c.badge}`}
                   >
                     <svg className="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24">
                       <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
@@ -260,7 +295,7 @@ export default function MembershipPlans() {
                 </div>
               )}
 
-              <div className="bg-white rounded-xl p-6 h-full flex flex-col">
+              <div className="rounded-xl p-5 h-full flex flex-col">
                 {/* Header */}
                 <div className="mb-6">
                   <div className={`inline-flex items-center gap-2 px-3 py-1 rounded-lg ${c.iconBg} mb-4`}>
@@ -270,10 +305,16 @@ export default function MembershipPlans() {
                     <span className={`text-sm font-bold ${c.accent}`}>{plan.name}</span>
                   </div>
                   <div className="flex items-baseline gap-1 mb-2">
-                    <span className="text-4xl font-extrabold text-black">${price}</span>
-                    <span className="text-gray-400 text-sm">{plan.period}</span>
+                    {price === 0 ? (
+                      <span className="text-4xl font-extrabold text-white">Free</span>
+                    ) : (
+                      <>
+                        <span className="text-4xl font-extrabold text-white">${price}</span>
+                        <span className="text-text-dim text-sm">{plan.period}</span>
+                      </>
+                    )}
                   </div>
-                  <p className="text-gray-500 text-sm">{plan.description}</p>
+                  <p className="text-text-lo text-sm">{plan.description}</p>
                 </div>
 
                 {/* Features */}
@@ -283,7 +324,7 @@ export default function MembershipPlans() {
                       <div className={`w-7 h-7 rounded-lg ${c.iconBg} flex items-center justify-center shrink-0 mt-0.5`}>
                         <FeatureIcon icon={f.icon} className={c.icon} />
                       </div>
-                      <span className="text-sm text-gray-700 leading-snug">{f.label}</span>
+                      <span className="text-sm text-text-mid leading-snug">{f.label}</span>
                     </li>
                   ))}
                 </ul>
@@ -291,15 +332,14 @@ export default function MembershipPlans() {
                 {/* CTA */}
                 <button
                   className={`
-                    w-full py-3 rounded-xl text-white font-semibold text-sm
+                    w-full py-3 rounded-xl ${c.buttonText} font-semibold text-sm
                     ${c.button} ${c.buttonRing}
                     focus:outline-none focus:ring-4
                     transition-all duration-200
-                    shadow-sm hover:shadow-md
                     active:scale-[0.98]
                   `}
                 >
-                  Upgrade to {plan.name}
+                  {plan.cta}
                 </button>
               </div>
             </div>

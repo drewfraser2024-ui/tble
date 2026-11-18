@@ -168,27 +168,27 @@ export default function ReceiptVerificationModal({
       onClick={() => stage !== 'scanning' && onClose()}
     >
       <div
-        className="bg-white w-full sm:max-w-md rounded-t-2xl sm:rounded-2xl shadow-xl max-h-[92vh] overflow-y-auto"
+        className="bg-ink-800 border border-[var(--hairline)] w-full sm:max-w-md rounded-t-2xl sm:rounded-2xl shadow-2xl max-h-[92vh] overflow-y-auto"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Header */}
-        <div className="relative px-6 pt-6 pb-4 border-b border-gray-100">
+        <div className="relative px-6 pt-6 pb-4 border-b border-[var(--hairline)]">
           <div className="flex items-center gap-2">
-            <div className="w-9 h-9 rounded-full bg-turquoise/10 flex items-center justify-center">
+            <div className="w-9 h-9 rounded-full bg-turquoise/15 flex items-center justify-center">
               <svg className="w-5 h-5 text-turquoise" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 14l2 2 4-4m1 7H8a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l4.414 4.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
               </svg>
             </div>
             <div>
-              <h2 className="text-lg font-bold text-black leading-tight">Verify your visit</h2>
-              <p className="text-xs text-gray-500">Posted to {businessName}</p>
+              <h2 className="text-lg font-bold text-white leading-tight">Verify your visit</h2>
+              <p className="text-xs text-text-lo">Posted to {businessName}</p>
             </div>
           </div>
           {stage !== 'scanning' && (
             <button
               onClick={onClose}
               aria-label="Close"
-              className="absolute top-5 right-5 w-8 h-8 rounded-full hover:bg-gray-100 flex items-center justify-center text-gray-400"
+              className="absolute top-5 right-5 w-8 h-8 rounded-full hover:bg-white/10 flex items-center justify-center text-text-lo"
             >
               <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
@@ -203,11 +203,11 @@ export default function ReceiptVerificationModal({
             <div className="text-center">
               <div
                 className={`w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4 ${
-                  isVerified ? 'bg-emerald-50' : isPending ? 'bg-amber-50' : 'bg-gray-100'
+                  isVerified ? 'bg-turquoise/15' : isPending ? 'bg-gold/15' : 'bg-white/10'
                 }`}
               >
                 <svg
-                  className={`w-8 h-8 ${isVerified ? 'text-emerald-500' : isPending ? 'text-amber-500' : 'text-gray-400'}`}
+                  className={`w-8 h-8 ${isVerified ? 'text-turquoise' : isPending ? 'text-gold' : 'text-text-dim'}`}
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
@@ -219,10 +219,10 @@ export default function ReceiptVerificationModal({
                   )}
                 </svg>
               </div>
-              <h3 className="text-lg font-bold text-black mb-1">
+              <h3 className="text-lg font-bold text-white mb-1">
                 {isVerified ? 'Visit verified! 🎉' : isPending ? 'Almost there' : 'Thanks!'}
               </h3>
-              <p className="text-sm text-gray-500 mb-5">
+              <p className="text-sm text-text-lo mb-5">
                 {isVerified
                   ? 'Your review now carries a Verified Visit badge — it posts instantly and ranks higher.'
                   : isPending
@@ -231,11 +231,11 @@ export default function ReceiptVerificationModal({
               </p>
 
               {/* Checks summary */}
-              <div className="text-left bg-gray-50 rounded-xl p-4 mb-5 space-y-2">
+              <div className="text-left bg-white/5 border border-[var(--hairline)] rounded-xl p-4 mb-5 space-y-2">
                 {result.checks.map((c) => (
                   <div key={c.label} className="flex items-center gap-2 text-sm">
                     <svg
-                      className={`w-4 h-4 shrink-0 ${c.passed ? 'text-emerald-500' : 'text-gray-300'}`}
+                      className={`w-4 h-4 shrink-0 ${c.passed ? 'text-turquoise' : 'text-text-dim'}`}
                       fill="currentColor"
                       viewBox="0 0 20 20"
                     >
@@ -245,14 +245,14 @@ export default function ReceiptVerificationModal({
                         <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM6.7 6.7a1 1 0 011.4 0L10 8.6l1.9-1.9a1 1 0 111.4 1.4L11.4 10l1.9 1.9a1 1 0 01-1.4 1.4L10 11.4l-1.9 1.9a1 1 0 01-1.4-1.4L8.6 10 6.7 8.1a1 1 0 010-1.4z" clipRule="evenodd" />
                       )}
                     </svg>
-                    <span className={c.passed ? 'text-gray-700' : 'text-gray-400'}>{c.label}</span>
+                    <span className={c.passed ? 'text-text-mid' : 'text-text-dim'}>{c.label}</span>
                   </div>
                 ))}
                 {(result.detectedTotal != null || result.detectedDate) && (
-                  <div className="pt-2 mt-1 border-t border-gray-200 flex items-center justify-between text-xs text-gray-500">
+                  <div className="pt-2 mt-1 border-t border-[var(--hairline)] flex items-center justify-between text-xs text-text-lo">
                     {result.detectedDate && <span>Dated {result.detectedDate}</span>}
                     {result.detectedTotal != null && (
-                      <span className="font-semibold text-gray-700">${result.detectedTotal.toFixed(2)}</span>
+                      <span className="font-semibold text-white">${result.detectedTotal.toFixed(2)}</span>
                     )}
                   </div>
                 )}
@@ -260,7 +260,7 @@ export default function ReceiptVerificationModal({
 
               <button
                 onClick={onClose}
-                className="w-full py-3 px-6 bg-turquoise hover:bg-turquoise-dark text-white font-semibold rounded-xl transition-colors shadow-sm"
+                className="btn-primary w-full py-3.5"
               >
                 View my review
               </button>
@@ -268,9 +268,9 @@ export default function ReceiptVerificationModal({
           ) : (
             <>
               {/* Pitch */}
-              <p className="text-sm text-gray-600 mb-4">
+              <p className="text-sm text-text-mid mb-4">
                 Snap or upload your receipt to earn a{' '}
-                <span className="inline-flex items-center gap-1 font-semibold text-emerald-700">
+                <span className="inline-flex items-center gap-1 font-semibold text-turquoise">
                   <svg className="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 20 20">
                     <path fillRule="evenodd" d="M10 1l2.4 1.9 3-.3 1 2.9 2.6 1.5-1 2.9 1 2.9-2.6 1.5-1 2.9-3-.3L10 19l-2.4-1.9-3 .3-1-2.9L1 13.2l1-2.9-1-2.9 2.6-1.5 1-2.9 3 .3L10 1z" clipRule="evenodd" />
                   </svg>
@@ -281,24 +281,24 @@ export default function ReceiptVerificationModal({
 
               {/* Dropzone / preview */}
               {stage === 'scanning' ? (
-                <div className="rounded-xl border border-gray-100 bg-gray-50 p-6">
+                <div className="rounded-xl border border-[var(--hairline)] bg-white/5 p-6">
                   <div className="flex items-center gap-3 mb-4">
                     {preview && (
                       // eslint-disable-next-line @next/next/no-img-element
-                      <img src={preview} alt="Receipt" className="w-12 h-16 object-cover rounded-md border border-gray-200" />
+                      <img src={preview} alt="Receipt" className="w-12 h-16 object-cover rounded-md border border-[var(--hairline)]" />
                     )}
                     <div className="w-5 h-5 border-2 border-turquoise border-t-transparent rounded-full animate-spin" />
-                    <span className="text-sm font-medium text-gray-700">Verifying…</span>
+                    <span className="text-sm font-medium text-text-mid">Verifying…</span>
                   </div>
                   <div className="space-y-2">
                     {SCAN_STEPS.map((step, i) => (
                       <div key={i} className="flex items-center gap-2 text-sm">
                         <span
                           className={`w-1.5 h-1.5 rounded-full ${
-                            i < activeStep ? 'bg-emerald-400' : i === activeStep ? 'bg-turquoise animate-pulse' : 'bg-gray-200'
+                            i < activeStep ? 'bg-turquoise' : i === activeStep ? 'bg-turquoise animate-pulse' : 'bg-white/15'
                           }`}
                         />
-                        <span className={i <= activeStep ? 'text-gray-700' : 'text-gray-300'}>
+                        <span className={i <= activeStep ? 'text-text-mid' : 'text-text-dim'}>
                           {i === 1 ? `Matching merchant to ${businessName}` : step}
                         </span>
                       </div>
@@ -306,9 +306,9 @@ export default function ReceiptVerificationModal({
                   </div>
                 </div>
               ) : preview ? (
-                <div className="relative rounded-xl overflow-hidden border border-gray-200">
+                <div className="relative rounded-xl overflow-hidden border border-[var(--hairline)]">
                   {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img src={preview} alt="Receipt preview" className="w-full max-h-64 object-contain bg-gray-50" />
+                  <img src={preview} alt="Receipt preview" className="w-full max-h-64 object-contain bg-ink-900" />
                   <button
                     onClick={() => {
                       if (preview) URL.revokeObjectURL(preview);
@@ -337,17 +337,17 @@ export default function ReceiptVerificationModal({
                   }}
                   onClick={() => inputRef.current?.click()}
                   className={`border-2 border-dashed rounded-xl p-8 text-center cursor-pointer transition-colors ${
-                    dragActive ? 'border-turquoise bg-turquoise/5' : 'border-gray-200 hover:border-turquoise-light'
+                    dragActive ? 'border-turquoise bg-turquoise/10' : 'border-[var(--hairline-strong)] hover:border-turquoise bg-white/[0.03]'
                   }`}
                 >
-                  <svg className="w-9 h-9 text-gray-400 mx-auto mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <svg className="w-9 h-9 text-text-dim mx-auto mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M3 9a2 2 0 012-2h.93a2 2 0 001.66-.9l.82-1.2A2 2 0 0110.07 4h3.86a2 2 0 011.66.9l.82 1.2a2 2 0 001.66.9H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z" />
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M15 13a3 3 0 11-6 0 3 3 0 016 0z" />
                   </svg>
-                  <p className="text-sm text-gray-600">
+                  <p className="text-sm text-text-mid">
                     Take a photo or <span className="text-turquoise font-medium">upload your receipt</span>
                   </p>
-                  <p className="text-xs text-gray-400 mt-1">JPG or PNG, up to {MAX_IMAGE_SIZE_MB}MB</p>
+                  <p className="text-xs text-text-dim mt-1">JPG or PNG, up to {MAX_IMAGE_SIZE_MB}MB</p>
                   <input
                     ref={inputRef}
                     type="file"
@@ -367,20 +367,20 @@ export default function ReceiptVerificationModal({
                   <button
                     onClick={handleVerify}
                     disabled={!file}
-                    className="w-full py-3 px-6 bg-turquoise hover:bg-turquoise-dark text-white font-semibold rounded-xl transition-colors disabled:opacity-50 disabled:cursor-not-allowed shadow-sm"
+                    className="btn-primary w-full py-3.5"
                   >
                     {stage === 'error' ? 'Try again' : 'Scan & verify'}
                   </button>
                   <button
                     onClick={onClose}
-                    className="w-full py-2.5 text-sm font-medium text-gray-500 hover:text-gray-700 transition-colors"
+                    className="w-full py-2.5 text-sm font-medium text-text-lo hover:text-white transition-colors"
                   >
                     Skip for now
                   </button>
                 </div>
               )}
 
-              <p className="text-[11px] text-gray-400 text-center mt-3 leading-relaxed">
+              <p className="text-[11px] text-text-dim text-center mt-3 leading-relaxed">
                 Your receipt is used only to confirm your visit and is never shown publicly.
               </p>
             </>

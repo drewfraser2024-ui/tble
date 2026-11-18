@@ -36,7 +36,7 @@ export default async function FoodTruckDetailPage({ params }: { params: Promise<
   return (
     <div>
       {/* Food Truck Header */}
-      <div className="bg-white rounded-xl border border-gray-100 p-6 shadow-sm mb-6">
+      <div className="glass-card p-6 mb-6">
         {business.cover_image_url && (
           <img
             src={business.cover_image_url}
@@ -44,27 +44,27 @@ export default async function FoodTruckDetailPage({ params }: { params: Promise<
             className="w-full h-48 object-cover rounded-lg mb-4"
           />
         )}
-        <h1 className="text-2xl font-bold text-black">{business.name}</h1>
-        <p className="text-gray-500 text-sm mt-1">{business.city}{business.state ? `, ${business.state}` : ''} Area</p>
+        <h1 className="text-2xl font-bold text-white">{business.name}</h1>
+        <p className="text-text-lo text-sm mt-1">{business.city}{business.state ? `, ${business.state}` : ''} Area</p>
         {business.description && (
-          <p className="text-gray-600 text-sm mt-2">{business.description}</p>
+          <p className="text-text-mid text-sm mt-2">{business.description}</p>
         )}
         <div className="flex items-center gap-3 mt-4">
           <StarRating value={Math.round(business.avg_overall_rating)} size="md" readOnly />
-          <span className="text-sm text-gray-500">
+          <span className="text-sm text-text-lo">
             {Number(business.avg_overall_rating).toFixed(1)} ({business.review_count} reviews)
           </span>
         </div>
         <Link
           href={`/foodtruck/${id}/review`}
-          className="mt-4 inline-flex items-center px-5 py-2.5 bg-turquoise hover:bg-turquoise-dark text-white font-medium text-sm rounded-xl transition-colors"
+          className="btn-primary mt-4 px-5 py-2.5 text-sm"
         >
           Write a Review
         </Link>
       </div>
 
       {/* Reviews */}
-      <h2 className="text-xl font-bold text-black mb-4">Reviews</h2>
+      <h2 className="text-xl font-bold text-white mb-4">Reviews</h2>
       <ReviewList reviews={reviews || []} isOwner={isOwner} isPremium={isPremium} businessId={business.id} />
     </div>
   );

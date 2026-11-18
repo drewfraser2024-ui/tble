@@ -49,10 +49,10 @@ export default function CommentSection({ reviewId, initialComments }: CommentSec
   }
 
   return (
-    <div className="mt-3 pt-3 border-t border-gray-100">
+    <div className="mt-3 pt-3 border-t border-[var(--hairline)]">
       <button
         onClick={() => setShowComments(!showComments)}
-        className="text-xs text-gray-400 hover:text-turquoise-dark transition-colors"
+        className="text-xs text-text-lo hover:text-turquoise transition-colors"
       >
         {comments.length > 0
           ? `${comments.length} comment${comments.length !== 1 ? 's' : ''}`
@@ -71,10 +71,10 @@ export default function CommentSection({ reviewId, initialComments }: CommentSec
               </div>
               <div>
                 <div className="flex items-center gap-2">
-                  <span className="text-xs font-medium text-black">{c.user_display_name}</span>
-                  <span className="text-xs text-gray-300">{formatDate(c.created_at)}</span>
+                  <span className="text-xs font-medium text-white">{c.user_display_name}</span>
+                  <span className="text-xs text-text-dim">{formatDate(c.created_at)}</span>
                 </div>
-                <p className="text-xs text-gray-600 mt-0.5">{c.comment_text}</p>
+                <p className="text-xs text-text-lo mt-0.5">{c.comment_text}</p>
               </div>
             </div>
           ))}
@@ -85,12 +85,12 @@ export default function CommentSection({ reviewId, initialComments }: CommentSec
               value={text}
               onChange={(e) => setText(e.target.value)}
               placeholder="Write a comment..."
-              className="flex-1 text-xs border border-gray-200 rounded-lg px-3 py-2 focus:outline-none focus:border-turquoise"
+              className="flex-1 text-xs bg-white/5 border border-[var(--hairline)] rounded-lg px-3 py-2 text-white placeholder:text-text-dim focus:outline-none focus:border-turquoise"
             />
             <button
               type="submit"
               disabled={isSubmitting || !text.trim()}
-              className="text-xs px-3 py-2 bg-turquoise text-white rounded-lg hover:bg-turquoise-dark disabled:opacity-50 transition-colors"
+              className="btn-primary text-xs px-3 py-2"
             >
               Post
             </button>

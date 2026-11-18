@@ -72,16 +72,16 @@ export default function ImageUploader({ images, onChange, category }: ImageUploa
         className={`border-2 border-dashed rounded-xl p-6 text-center cursor-pointer transition-colors ${
           dragActive
             ? 'border-turquoise bg-turquoise/5'
-            : 'border-gray-200 hover:border-turquoise-light'
+            : 'border-[var(--hairline-strong)] hover:border-turquoise bg-white/[0.03]'
         }`}
       >
-        <svg className="w-8 h-8 text-gray-400 mx-auto mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <svg className="w-8 h-8 text-text-dim mx-auto mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
         </svg>
-        <p className="text-sm text-gray-500">
+        <p className="text-sm text-text-lo">
           Drag & drop images or <span className="text-turquoise font-medium">browse</span>
         </p>
-        <p className="text-xs text-gray-400 mt-1">
+        <p className="text-xs text-text-dim mt-1">
           Max {MAX_IMAGES} images, {MAX_IMAGE_SIZE_MB}MB each
         </p>
         <input
@@ -97,7 +97,7 @@ export default function ImageUploader({ images, onChange, category }: ImageUploa
       {images.length > 0 && (
         <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 mt-4">
           {images.map((img, i) => (
-            <div key={i} className="relative group rounded-lg overflow-hidden border border-gray-100">
+            <div key={i} className="relative group rounded-lg overflow-hidden border border-[var(--hairline)]">
               <img
                 src={img.preview}
                 alt={`Upload ${i + 1}`}

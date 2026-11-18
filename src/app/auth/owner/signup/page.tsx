@@ -2,7 +2,6 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
-import Image from 'next/image';
 import { createClient } from '@/lib/supabase/client';
 
 export default function OwnerSignUpPage() {
@@ -44,130 +43,129 @@ export default function OwnerSignUpPage() {
 
   if (success) {
     return (
-      <div className="min-h-[calc(100vh-8rem)] flex items-center justify-center px-4">
-        <div className="w-full max-w-md text-center">
-          <div className="w-16 h-16 rounded-full bg-gold/10 flex items-center justify-center mx-auto mb-4">
-            <svg className="w-8 h-8 text-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-            </svg>
-          </div>
-          <h1 className="text-2xl font-bold text-black mb-2">Check your email</h1>
-          <p className="text-gray-500 text-sm mb-4">
-            We sent a confirmation link to <strong>{email}</strong>. Click the link to activate your owner account.
-          </p>
-          <p className="text-gray-400 text-xs mb-6">
-            Once confirmed, your business &ldquo;{businessName}&rdquo; can be linked to your account by our team.
-          </p>
-          <Link
-            href="/auth/owner/signin"
-            className="text-gold font-medium text-sm hover:underline"
-          >
-            Back to owner sign in
-          </Link>
+      <div className="max-w-md mx-auto px-5 py-12 text-center">
+        <div className="w-16 h-16 rounded-2xl bg-gold/10 border border-gold/30 flex items-center justify-center mx-auto mb-5">
+          <svg className="w-8 h-8 text-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+          </svg>
         </div>
+        <h1 className="text-2xl font-bold text-white mb-2">Check your email</h1>
+        <p className="text-text-lo text-sm mb-4">
+          We sent a confirmation link to <strong className="text-white">{email}</strong>. Click the link to activate your owner account.
+        </p>
+        <p className="text-text-dim text-xs mb-6">
+          Once confirmed, your business &ldquo;{businessName}&rdquo; can be linked to your account by our team.
+        </p>
+        <Link
+          href="/auth/owner/signin"
+          className="text-gold font-semibold text-sm hover:underline"
+        >
+          Back to owner sign in
+        </Link>
       </div>
     );
   }
 
   return (
-    <div className="min-h-[calc(100vh-8rem)] flex items-center justify-center px-4">
-      <div className="w-full max-w-md">
-        <div className="text-center mb-8">
-          <Image src="/logo.svg" alt="Tble" width={100} height={100} className="mx-auto mb-2" />
-          <h1 className="text-2xl font-bold text-black">Register as Owner</h1>
-          <p className="text-gray-500 text-sm mt-1">Create an account to manage your business on Tble</p>
+    <div className="max-w-md mx-auto px-5 py-12">
+      <div className="text-center mb-8">
+        <div className="app-badge w-16 h-16 rounded-2xl mx-auto mb-5">
+          <span className="font-serif font-bold italic text-3xl text-[#06201C]">T</span>
         </div>
+        <p className="text-gold text-xs font-semibold uppercase tracking-wide mb-1">Business Owner</p>
+        <h1 className="text-2xl font-bold text-white">Register as Owner</h1>
+        <p className="text-text-lo text-sm mt-1.5">Create an account to manage your business on Tble It</p>
+      </div>
 
-        <div className="bg-white rounded-2xl border border-gold/30 p-8 shadow-sm">
-          <form onSubmit={handleSubmit} className="space-y-4">
-            <div>
-              <label htmlFor="displayName" className="block text-sm font-medium text-gray-700 mb-1">
-                Your Name
-              </label>
-              <input
-                id="displayName"
-                type="text"
-                value={displayName}
-                onChange={(e) => setDisplayName(e.target.value)}
-                required
-                placeholder="Your full name"
-                className="w-full px-4 py-2.5 rounded-xl border border-gray-200 text-sm focus:outline-none focus:border-gold focus:ring-2 focus:ring-gold-light"
-              />
-            </div>
-
-            <div>
-              <label htmlFor="businessName" className="block text-sm font-medium text-gray-700 mb-1">
-                Business Name
-              </label>
-              <input
-                id="businessName"
-                type="text"
-                value={businessName}
-                onChange={(e) => setBusinessName(e.target.value)}
-                required
-                placeholder="Your restaurant or business name"
-                className="w-full px-4 py-2.5 rounded-xl border border-gray-200 text-sm focus:outline-none focus:border-gold focus:ring-2 focus:ring-gold-light"
-              />
-            </div>
-
-            <div>
-              <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">
-                Email
-              </label>
-              <input
-                id="email"
-                type="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                required
-                placeholder="you@example.com"
-                className="w-full px-4 py-2.5 rounded-xl border border-gray-200 text-sm focus:outline-none focus:border-gold focus:ring-2 focus:ring-gold-light"
-              />
-            </div>
-
-            <div>
-              <label htmlFor="password" className="block text-sm font-medium text-gray-700 mb-1">
-                Password
-              </label>
-              <input
-                id="password"
-                type="password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                required
-                minLength={6}
-                placeholder="At least 6 characters"
-                className="w-full px-4 py-2.5 rounded-xl border border-gray-200 text-sm focus:outline-none focus:border-gold focus:ring-2 focus:ring-gold-light"
-              />
-            </div>
-
-            {error && (
-              <p className="text-pink text-sm text-center">{error}</p>
-            )}
-
-            <button
-              type="submit"
-              disabled={loading}
-              className="w-full py-2.5 bg-gold hover:bg-yellow-600 text-white font-semibold rounded-xl transition-colors disabled:opacity-50 shadow-sm"
-            >
-              {loading ? 'Creating account...' : 'Register Business'}
-            </button>
-          </form>
-
-          <div className="mt-6 text-center space-y-2">
-            <p className="text-sm text-gray-500">
-              Already have an owner account?{' '}
-              <Link href="/auth/owner/signin" className="text-gold font-medium hover:underline">
-                Sign in
-              </Link>
-            </p>
-            <p className="text-sm text-gray-400">
-              Not an owner?{' '}
-              <Link href="/auth/signup" className="text-turquoise-dark font-medium hover:underline">
-                User sign up
-              </Link>
-            </p>
+      <div className="glass-card p-8 border-gold/30">
+        <form onSubmit={handleSubmit} className="space-y-5">
+          <div>
+            <label htmlFor="displayName" className="block text-sm font-medium text-text-mid mb-1.5">
+              Your Name
+            </label>
+            <input
+              id="displayName"
+              type="text"
+              value={displayName}
+              onChange={(e) => setDisplayName(e.target.value)}
+              required
+              placeholder="Your full name"
+              className="field"
+            />
           </div>
+
+          <div>
+            <label htmlFor="businessName" className="block text-sm font-medium text-text-mid mb-1.5">
+              Business Name
+            </label>
+            <input
+              id="businessName"
+              type="text"
+              value={businessName}
+              onChange={(e) => setBusinessName(e.target.value)}
+              required
+              placeholder="Your restaurant or business name"
+              className="field"
+            />
+          </div>
+
+          <div>
+            <label htmlFor="email" className="block text-sm font-medium text-text-mid mb-1.5">
+              Email
+            </label>
+            <input
+              id="email"
+              type="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
+              placeholder="you@example.com"
+              className="field"
+            />
+          </div>
+
+          <div>
+            <label htmlFor="password" className="block text-sm font-medium text-text-mid mb-1.5">
+              Password
+            </label>
+            <input
+              id="password"
+              type="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+              minLength={6}
+              placeholder="At least 6 characters"
+              className="field"
+            />
+          </div>
+
+          {error && (
+            <p className="text-pink text-sm text-center">{error}</p>
+          )}
+
+          <button
+            type="submit"
+            disabled={loading}
+            className="btn-primary w-full py-3.5"
+          >
+            {loading ? 'Creating account...' : 'Register Business'}
+          </button>
+        </form>
+
+        <div className="mt-6 text-center space-y-2">
+          <p className="text-sm text-text-lo">
+            Already have an owner account?{' '}
+            <Link href="/auth/owner/signin" className="text-gold font-semibold hover:underline">
+              Sign in
+            </Link>
+          </p>
+          <p className="text-sm text-text-dim">
+            Not an owner?{' '}
+            <Link href="/auth/signup" className="text-turquoise font-semibold hover:underline">
+              User sign up
+            </Link>
+          </p>
         </div>
       </div>
     </div>

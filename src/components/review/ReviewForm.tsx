@@ -201,8 +201,8 @@ export default function ReviewForm({ businessId, businessName, category }: Revie
     <>
     <form onSubmit={handleSubmit} className="space-y-6">
       <div className="text-center mb-6">
-        <h2 className="text-2xl font-bold text-black">Review {businessName}</h2>
-        <p className="text-gray-500 text-sm mt-1">Rate your experience across all categories</p>
+        <h2 className="text-2xl font-bold text-white">Review {businessName}</h2>
+        <p className="text-text-lo text-sm mt-1">Rate your experience across all categories</p>
       </div>
 
       {/* Compartment Ratings */}
@@ -219,14 +219,14 @@ export default function ReviewForm({ businessId, businessName, category }: Revie
 
       {/* Auto-calculated Overall Rating */}
       {calculatedOverallRating > 0 && (
-        <div className="bg-white rounded-xl border border-gray-100 p-5 shadow-sm">
-          <h3 className="text-lg font-bold text-black mb-3 flex items-center gap-2">
+        <div className="glass-card p-5">
+          <h3 className="text-lg font-bold text-white mb-3 flex items-center gap-2">
             <div className="w-1 h-5 rounded-full bg-gold" />
             Your Overall Rating
           </h3>
           <div className="flex items-center gap-3">
             <StarRating value={calculatedOverallRating} size="lg" readOnly />
-            <span className="text-sm text-gray-500">
+            <span className="text-sm text-text-lo">
               {calculatedOverallRating}/5 (calculated from your ratings)
             </span>
           </div>
@@ -234,9 +234,9 @@ export default function ReviewForm({ businessId, businessName, category }: Revie
       )}
 
       {/* Written Review */}
-      <div className="bg-white rounded-xl border border-gray-100 p-5 shadow-sm">
+      <div className="glass-card p-5">
         <div className="flex items-center justify-between mb-3">
-          <h3 className="text-lg font-bold text-black flex items-center gap-2">
+          <h3 className="text-lg font-bold text-white flex items-center gap-2">
             <div className="w-1 h-5 rounded-full bg-pink" />
             Written Review
             <span className="text-xs font-normal text-pink ml-1">Required</span>
@@ -254,10 +254,10 @@ export default function ReviewForm({ businessId, businessName, category }: Revie
           }
           placeholder="Tell us about your experience in detail..."
           rows={5}
-          className="w-full border border-gray-200 rounded-lg p-3 text-sm focus:outline-none focus:border-turquoise focus:ring-2 focus:ring-turquoise-light resize-y"
+          className="field resize-y"
         />
         <div className="flex justify-between items-center mt-2">
-          <p className="text-xs text-gray-400">
+          <p className="text-xs text-text-dim">
             {form.reviewText.length}/{MIN_REVIEW_LENGTH} min characters
           </p>
           {form.errors.reviewText && (
@@ -267,11 +267,11 @@ export default function ReviewForm({ businessId, businessName, category }: Revie
       </div>
 
       {/* Image Upload */}
-      <div className="bg-white rounded-xl border border-gray-100 p-5 shadow-sm">
-        <h3 className="text-lg font-bold text-black mb-3 flex items-center gap-2">
+      <div className="glass-card p-5">
+        <h3 className="text-lg font-bold text-white mb-3 flex items-center gap-2">
           <div className="w-1 h-5 rounded-full bg-turquoise" />
           Photos
-          <span className="text-xs font-normal text-gray-400 ml-1">Optional</span>
+          <span className="text-xs font-normal text-text-dim ml-1">Optional</span>
         </h3>
         <ImageUploader
           images={form.images}
@@ -292,7 +292,7 @@ export default function ReviewForm({ businessId, businessName, category }: Revie
       <button
         type="submit"
         disabled={form.isSubmitting}
-        className="w-full py-3 px-6 bg-turquoise hover:bg-turquoise-dark text-white font-semibold rounded-xl transition-colors disabled:opacity-50 disabled:cursor-not-allowed shadow-sm"
+        className="btn-primary w-full py-3.5"
       >
         {form.isSubmitting ? 'Submitting...' : 'Submit Review'}
       </button>
