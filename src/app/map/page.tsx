@@ -1,5 +1,4 @@
 import { createClient } from '@/lib/supabase/server';
-import BackButton from '@/components/ui/BackButton';
 import MapWrapper from '@/components/map/MapWrapper';
 
 export const metadata = {
@@ -26,9 +25,6 @@ export default async function MapPage({
 
   return (
     <div className="max-w-2xl mx-auto px-5 py-6">
-      <div className="mb-4">
-        <BackButton href="/" />
-      </div>
       <div className="mb-5">
         <h1 className="text-2xl font-bold text-white">Explore the Map</h1>
         <p className="text-text-lo text-sm">Find reviewed businesses near you</p>
