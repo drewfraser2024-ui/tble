@@ -1,6 +1,7 @@
 @import "tailwindcss";
 
 :root {
+  /* Brand */
   --turquoise: #2DD4BF;
   --turquoise-dark: #14B8A6;
   --turquoise-light: #99F6E4;
@@ -11,7 +12,26 @@
   --violet: #8B5CF6;
   --violet-dark: #7C3AED;
   --violet-light: #C4B5FD;
-  --black: #0A0A0A;
+
+  /* Dark app palette */
+  --ink-950: #05070A;   /* app background base */
+  --ink-900: #0A0D12;
+  --ink-850: #0E1218;
+  --ink-800: #141922;   /* raised surface */
+  --ink-700: #1C222C;   /* card */
+  --ink-600: #272E3A;   /* hairline / border strong */
+  --ink-500: #3A4150;
+
+  --text-hi: #FFFFFF;
+  --text-mid: #C3CAD4;
+  --text-lo: #8A93A1;
+  --text-dim: #5A6472;
+
+  --hairline: rgba(255, 255, 255, 0.08);
+  --hairline-strong: rgba(255, 255, 255, 0.14);
+
+  /* legacy grays kept so existing pages don't break while being migrated */
+  --black: #05070A;
   --white: #FFFFFF;
   --gray-50: #F9FAFB;
   --gray-100: #F3F4F6;
@@ -22,8 +42,13 @@
   --gray-600: #4B5563;
   --gray-700: #374151;
   --gray-800: #1F2937;
-  --background: var(--white);
-  --foreground: var(--black);
+
+  --background: var(--ink-950);
+  --foreground: var(--text-hi);
+
+  /* app chrome heights */
+  --appbar-h: 56px;
+  --bottomnav-h: 64px;
 }
 
 @theme inline {
@@ -39,38 +64,161 @@
   --color-violet: var(--violet);
   --color-violet-dark: var(--violet-dark);
   --color-violet-light: var(--violet-light);
+
+  --color-ink-950: var(--ink-950);
+  --color-ink-900: var(--ink-900);
+  --color-ink-850: var(--ink-850);
+  --color-ink-800: var(--ink-800);
+  --color-ink-700: var(--ink-700);
+  --color-ink-600: var(--ink-600);
+  --color-ink-500: var(--ink-500);
+  --color-text-hi: var(--text-hi);
+  --color-text-mid: var(--text-mid);
+  --color-text-lo: var(--text-lo);
+  --color-text-dim: var(--text-dim);
+
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
 }
 
+html {
+  background: var(--ink-950);
+  -webkit-text-size-adjust: 100%;
+}
+
 body {
-  background: var(--background);
+  background: var(--ink-950);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-geist-sans), -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  /* Ambient brand glow behind the whole app */
+  background-image:
+    radial-gradient(90% 60% at 78% 0%, rgba(139, 92, 246, 0.12), transparent 60%),
+    radial-gradient(120% 80% at 50% 108%, rgba(45, 212, 191, 0.16), transparent 62%);
+  background-attachment: fixed;
+  min-height: 100vh;
 }
 
-/* Star rating styles */
-.star-rating button {
-  transition: transform 0.1s ease;
+/* ---------- Safe-area helpers (notch + home indicator) ---------- */
+.pt-safe { padding-top: env(safe-area-inset-top); }
+.pb-safe { padding-bottom: env(safe-area-inset-bottom); }
+.h-appbar { height: calc(var(--appbar-h) + env(safe-area-inset-top)); }
+.pt-appbar { padding-top: calc(var(--appbar-h) + env(safe-area-inset-top)); }
+.pb-bottomnav { padding-bottom: calc(var(--bottomnav-h) + env(safe-area-inset-bottom)); }
+
+/* ---------- Reusable app surfaces ---------- */
+.glass-card {
+  background: linear-gradient(180deg, rgba(255,255,255,0.05), rgba(255,255,255,0.02));
+  border: 1px solid var(--hairline);
+  border-radius: 1.25rem;
+  backdrop-filter: blur(12px);
 }
 
-.star-rating button:hover {
-  transform: scale(1.2);
+.glass-card-hover {
+  transition: transform 0.18s ease, border-color 0.18s ease, background 0.18s ease;
+}
+.glass-card-hover:active { transform: scale(0.98); }
+@media (hover: hover) {
+  .glass-card-hover:hover {
+    transform: translateY(-2px);
+    border-color: var(--hairline-strong);
+  }
 }
 
-/* Pulse animation for voice recording */
+/* Verified pill (matches the reference badge) */
+.verify-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.55rem 1rem;
+  border-radius: 999px;
+  color: var(--turquoise);
+  font-weight: 600;
+  font-size: 0.875rem;
+  border: 1px solid rgba(45, 212, 191, 0.35);
+  background: rgba(45, 212, 191, 0.08);
+}
+
+/* App icon badge (rounded square with serif T) */
+.app-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(160deg, #35E0CB, #16B6A3);
+  box-shadow: 0 10px 40px rgba(45, 212, 191, 0.35), inset 0 1px 0 rgba(255,255,255,0.4);
+}
+
+/* Primary / ghost buttons */
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  background: var(--turquoise);
+  color: #04110F;
+  font-weight: 700;
+  border-radius: 0.9rem;
+  transition: background 0.15s ease, transform 0.1s ease;
+}
+.btn-primary:hover { background: var(--turquoise-light); }
+.btn-primary:active { transform: scale(0.98); }
+.btn-primary:disabled { opacity: 0.5; }
+
+.btn-ghost {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  background: rgba(255,255,255,0.06);
+  color: var(--text-hi);
+  border: 1px solid var(--hairline);
+  font-weight: 600;
+  border-radius: 0.9rem;
+  transition: background 0.15s ease;
+}
+.btn-ghost:hover { background: rgba(255,255,255,0.1); }
+
+/* Dark form field */
+.field {
+  width: 100%;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid var(--hairline);
+  border-radius: 0.9rem;
+  color: var(--text-hi);
+  padding: 0.75rem 1rem;
+  font-size: 0.95rem;
+  transition: border-color 0.15s ease, background 0.15s ease;
+}
+.field::placeholder { color: var(--text-dim); }
+.field:focus {
+  outline: none;
+  border-color: var(--turquoise);
+  background: rgba(45, 212, 191, 0.06);
+}
+
+/* Hide native scrollbars for horizontal scrollers */
+.no-scrollbar::-webkit-scrollbar { display: none; }
+.no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+/* ---------- Existing component styles (kept) ---------- */
+.star-rating button { transition: transform 0.1s ease; }
+.star-rating button:hover { transform: scale(1.2); }
+
 @keyframes pulse-ring {
   0% { transform: scale(0.95); opacity: 1; }
   50% { transform: scale(1.1); opacity: 0.7; }
   100% { transform: scale(0.95); opacity: 1; }
 }
+.voice-pulse { animation: pulse-ring 1.5s ease-in-out infinite; }
 
-.voice-pulse {
-  animation: pulse-ring 1.5s ease-in-out infinite;
-}
-
-/* Image upload dropzone */
 .dropzone-active {
   border-color: var(--turquoise);
-  background-color: rgba(45, 212, 191, 0.05);
+  background-color: rgba(45, 212, 191, 0.08);
 }
+
+@keyframes fade-up {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.animate-fade-up { animation: fade-up 0.5s ease both; }
